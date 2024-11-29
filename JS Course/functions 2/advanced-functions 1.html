@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Functions</title>
+
+</head>
+
+
+<body>
+
+<script>
+
+//first fucntion
+/*
+function greating (){
+    console.log('Hello');
+}  
+greating ();
+
+
+const num = 2;
+
+const function1 = function /*greating*/ () {   // Anonymous function
+    console.log('Hi')
+}
+
+console.log(function1);
+console.log(function1());
+console.log(typeof(function1));
+
+
+// when we think about, the function that we created is a shortcut
+var greating = function(){
+    console.log('Hello');
+}
+greating()
+
+
+//// Shortcut gives 2 advantages => Hoisting (function called before function written content)
+                        //       => easy to read
+                        //       => we can save it somewhere else like objects
+
+const object = {
+    num:2,
+    fun: function(){
+        console.log('Hello3')
+    },
+    fun2(){                    //shortcut
+        console.log('Hello3')
+    },
+}
+
+object.fun();
+object.fun2();
+
+
+function display(param){
+    console.log(param);
+}
+display('hi');
+
+
+///// passing a function into a function and called => Callback function
+function run(param){
+    param()
+}
+
+run(function(){
+    console.log('function inside function')
+})
+
+///Examples 
+setTimeout(function(){
+    console.log('time-out')
+}, 2000)  //wait 2s to disply
+// asynchronus code/function 
+
+console.log('next-line') // this line apprears first and then set time out function
+// // asynchronus code/function : it does not wait for the settimeout function
+// it starts the timer and jumps to the next one.
+
+setInterval(() => {
+    console.log('hi')
+}, 50000);
+
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    img{
+      width: 50px;
+    }
+  </style>
+</head>
+
+
+
+<body>
+
+  <section>
+    <h1>Rock Paper scissors</h1>
+
+    <button onclick="playGame('rock')"> <img src="images/rock-emoji.png" alt=""></button>
+    <button onclick="playGame('paper')">  <img src="images/paper-emoji.png" alt=""></button>
+    <button onclick="playGame('scissors')"> <img src="images/scissors-emoji.png" alt=""></button>
+
+    <div>
+
+      <button onclick="
+              score.wins=0; 
+              score.losses=0; 
+              score.ties=0;
+              
+              localStorage.removeItem('score');
+
+              console.log(`Score were reset, Wins ; ${score.wins}, Losses ; ${score.losses}, Tries ; ${score.ties}, `)"
+      >Reset Score</button>
+
+    </div>
+  </section>
+
+
+  <script>
+
+    let score = JSON.parse(localStorage.getItem('score')) /* || {  //same outcome
+      wins: 0,
+      losses: 0,
+      ties: 0
+    }*/
+
+    if (!score){
+      score = {
+        wins: 0,
+        losses: 0,
+        ties: 0
+      }
+    }
+
+    let results = ''
+
+    //generate bot move
+    function computerMove(){
+      let botPlay = Math.random()
+      if (botPlay>=0 && botPlay<0.3){
+        botPlay='scissors'
+      } else if (botPlay>0.333 && botPlay<0.666){
+        botPlay='paper'
+      } else {
+        botPlay='rock'
+      }
+      return botPlay
+    }
+  
+ 
+    
+    function playGame(userMove) {
+
+      const botPlay = computerMove()
+
+      console.log(`${userMove} vs ${botPlay}`)
+      
+      //compare user and bot results
+      if (userMove === botPlay){
+        result = 'Draw'
+      } 
+        else if (userMove === 'scissors' && botPlay=== 'rock') {
+        result = 'You lost'
+      } 
+        else if (userMove === 'scissors' && botPlay=== 'paper') {
+        result = 'You win'
+      } 
+        else if (userMove === 'rock' && botPlay=== 'paper') {
+        result = 'You lost'
+        
+      } else if (userMove === 'rock' && botPlay=== 'scissors') {
+        result = 'You win'
+      } 
+        else if (userMove === 'paper' && botPlay=== 'scissors') {
+        result = 'You lost'
+      } 
+        else {
+        result = 'You win'
+      }
+
+      // count wis
+      if (result === 'You win'){
+        score.wins++
+      } else if (result === 'You lost'){
+        score.losses++
+      } else {
+        score.ties++
+      }
+      console.log(`Wins ; ${score.wins}, Losses ; ${score.losses}, Tries ; ${score.ties}, `)
+
+      localStorage.setItem('score', JSON.stringify(score));    
+    }
+
+    
+
+
+  </script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,108 @@
+header{
+    background-color: rgb(19, 25, 33);
+    height: 60px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .left-section{
+        margin-left: 20px;
+    }
+
+            .left-section:hover{
+            }
+
+        .amazon-icon{
+            margin-top: 6px;
+            padding: 10px 5px 10px 10px;
+            height: 30px;
+            border: 1px solid transparent;
+        }
+            .amazon-icon:hover{
+                border: 1px solid white;
+                border-radius: 5px;
+            }
+
+    .middle-section{
+        display: flex;
+        align-items: center;
+    }
+        .js-search-input{
+            min-width: 400px;
+            max-width: 800px;
+            height: 35px;
+            border-radius: 5px;
+            border: none;
+            text-indent: 10px ;
+        }
+        .js-search-input:focus{
+            outline: 1px solid orange;
+        }
+        .js-search-input:focus ~ .js-search-icon-button{
+            outline: 1px solid orange;
+            border: 1px solid orange;
+        }
+
+        .js-search-icon-button{
+            height: 37px;
+            width: 40px;
+            background-color: rgb(255, 202, 103);
+            border: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            margin-left: -5px;
+
+        }
+
+            .js-search-icon{
+                width: 24px;
+            }
+
+    
+    .right-section{
+        display: flex;
+        align-items: center;
+        color: white;
+        margin-right: 20px;
+    }
+        .order-return-link {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 5px 5px;
+            border: 1px solid transparent;
+        }
+        .order-return-link:hover {
+            border: 1px solid white;
+        }
+
+        .cart-container{
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 5px 10px 10px;
+            display: flex;
+            align-items: center;
+            border: 1px solid transparent;
+        }
+
+        .js-added-to-cart{
+            height: 60px;
+        }
+
+        .cart-container:hover{
+            border: 1px solid white;
+        }
+            .cart-icon{
+                width: 34px;
+                margin-right: 5px;
+            }

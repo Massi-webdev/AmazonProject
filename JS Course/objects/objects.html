@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    /*
+    const product = {
+      name: 'socks',
+      price: 1090
+    };
+
+    console.log(product)
+    console.log(product.name)
+    console.log(product.price)
+
+    product.name='T-shirt'
+    console.log(product)
+
+    product.new = true
+    console.log(product)
+
+    product.details = {
+      range: 115,
+      sale: "20%",
+      size: 10
+    }
+    console.log(product.new.range)
+    product.new.range=15
+
+    console.log(product.new)
+    console.log(product)
+
+
+    delete product.details
+    console.log(product)
+
+    product.list = [1,2,3]
+    console.log(product.list[2])*/
+
+    /*const product2 = {
+      name: 'shirt',
+      ['delivery-time']: '1 day',
+      'delivery-time2': '1 day',    //shorcut
+      rating: {                     //Nested Object
+        stars: 4.5,
+        count: 87
+      },
+      fun: function example(argument){
+        console.log('function can be saved in an object')  //Method: function inside an object
+      }                                                    //console.log() is a method
+    };
+
+    console.log(product2)
+    console.log(product2.name);    // access properties in obect (Dot notation)
+    console.log(product2['name'])  // access properties in obect (bracket notation)
+    // when do we use them? we use bracket for properties that we cant access with dot notation. example:
+    //console.log(product2.delivery-time)
+    console.log(product2['delivery-time'])
+
+    console.log(product2.rating.count)
+
+    console.log(product2.fun())
+
+    console.log(typeof console)     //Object
+    console.log(typeof console.log) //Function or method
+
+    // we call them built in objects like Math.random()    
+    // Built in JSON object
+
+    console.log(JSON.stringify(product2))   // does not support function and "" on properties and strings
+    console.log(JSON.parse(JSON.stringify(product2))) //convert back to JS */
+
+
+    console.log('Hello'.length);  // string has properties
+    console.log('HeLlo'.toLocaleLowerCase()); // string has methodes
+    console.log('HeLlo'.toLocaleUpperCase());  // because JS wrap string into a invisible object  => AUTOBOXING
+    console.log(3.0.toString());              // works on numbers
+    console.log(true.toString());             // works on booleans
+                                              // does not work on null or undefined
+
+
+    ///// Object are references //////
+    const object2 = {
+      message: 'Hi'   //<- this is a reference that point somewhere in computer memory   => COPY BY REFERENCE like a pc shortcut
+    }
+
+    const object3 = object2  // not a copy of the object but a copy of a reference that points an object 
+
+    /// REFERENCE BEHAVIOUS //////////
+    object3.message='good job'
+    console.log(object3)  //
+    console.log(object2)   // changed even though we did not do it directly.
+
+    //// We can't compare object directly.
+    const object4 = {
+      message: 'good job'
+    }
+    console.log(object4 === object2)   //FALSE because its not the same object and they differente reference
+    console.log(object3 === object2)   //TRUE because they have the sane REFERENCE
+
+    const object5 = {
+      message: 'good job',
+      price: 799,
+    };
+
+
+    //// SHORTCUT FOR OBJECT
+    //const message = object5.messsage 
+    //const {message} = object4             //destrcuturing shortcut
+    const {message, price} = object5             //destrcuturing shortcut
+    console.log(message, price)                  // Easier way to get out properties out of an object
+
+
+  ///////////////SHORTHAND Propertie/////////////////
+
+    const object6 = {
+      //message: message
+      message,
+
+   ///////////////shorthand method ///////////////
+      method: function function1(){
+        console.log('method')
+      },
+      method2(){              
+        console.log('method')
+      }
+    
+    }
+    console.log(object6)
+    object6.method()
+    object6.method2()
+
+
+  </script>
+
+</body>
+</html>

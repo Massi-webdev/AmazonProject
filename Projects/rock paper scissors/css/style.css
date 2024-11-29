@@ -1,0 +1,70 @@
+
+body{
+  background-color: rgb(33, 33, 33);
+  color: white;
+}
+
+img{
+  width: 50px;
+}
+
+.js-results, .js-show-plays, .js-show-your-result{
+  margin: 20px 0;
+}
+
+.js-button{
+  border: none;
+  border-radius: 50%;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+}
+
+.js-button:hover{
+  cursor: pointer;
+  opacity: 0.2;
+}
+
+.js-result-img{
+  width: 24px;
+}
+
+
+
+.js-reset-score{
+  background-color: rgb(90, 90, 90);
+  border:  none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+}
+
+
+.js-auto-play{
+  background-color: rgb(27, 92, 27);
+  border:  none;
+  border-radius: 5px;
+  padding:  5px 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.js-stop-auto-play{
+  background-color: rgb(179, 51, 25);
+  border:  none;
+  border-radius: 5px;
+  padding:  5px 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.js-yes-no-reset-off{
+  margin-top: 20px;
+  margin-left: 10px;
+  opacity: 0;
+}
+
+.js-yes-no-reset-on{
+  margin-top: 20px;
+  opacity: 1;
+}

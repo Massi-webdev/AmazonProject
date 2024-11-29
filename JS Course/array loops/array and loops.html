@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+
+<body>
+  
+</body>
+
+<script>/*
+  const myArray = [10, 20, 30, 40, 50];
+  console.log(myArray);
+  console.log(myArray[0]);
+
+  myArray[0]=5;
+  console.log(myArray);
+
+  [1, 'hello', true, {name: 'socks'}, [1,2]]
+  console.log(typeof[1,2])
+  console.log(Array.isArray([1,2]))
+
+  console.log(myArray.length);
+
+  myArray.push(100, 'pushed');
+  console.log(myArray);
+
+  myArray.splice(1,1)
+  console.log(myArray);
+
+  document.body.addEventListener('keydown', ()=>{
+    console.log(event.key)
+  })*/
+
+/*
+const array1 = [1,2,3];
+const addedNumber1 = 5;
+
+function addedNumber(array, number){
+  for (let i=0; i< array.length; i++){
+    array[i] = array[i]+number;
+  }
+  return console.log(array);
+}
+
+addedNumber(array1, addedNumber1)
+  
+
+const array2 = [1,2,3];
+const array3 = [];
+
+function addArrayNumbers(arrayOne, arrayTwo){
+  for (let i = 0; i<arrayOne.length; i++){
+    array3.push(array1[i]+array2[i])
+  }
+  return console.log(array3);
+}
+
+addArrayNumbers(array2, array1)*/
+/*
+const array4 = [-1,2,-5,4];
+
+function countPositiveNumber(){
+    for (i=0; i<array4.length; i++) {
+        if (array4[i]<0){
+            array4.splice(i,1)
+        }
+    }
+    return console.log(array4)
+};
+
+countPositiveNumber();*/
+
+///////// Exercice 11l////////////////////
+/*
+const array5 = [3,3];
+
+const results = {
+  min: null,
+  max: null
+};
+
+function findMinMax(array){
+    for (let i = 0; i<array.length; i++){
+        if (i===0){
+          results.min=array[0];
+          results.max=array[0];
+        }
+        else {
+          if (array[i]<results.min){
+            results.min=array[i];
+          } 
+          else if (array[i]>results.max){
+            results.max=array[i];
+          }
+        }
+   }
+  return console.log(results)
+}
+
+findMinMax(array5);
+*/
+
+
+//Challenge exercice
+/*
+const array6 = ['apple','apple','grapes','Apple','watermelon','apple','watermelon','apple','watermelon'];
+let arrayElement;
+let arrayElementUpperCase;
+
+const resultObject = {};
+
+function countWords(array){
+  for(let i=0; i<array.length;i++){
+    arrayElement = array[i];
+    arrayElementUpperCase = arrayElement.toUpperCase()
+    if (resultObject[`${arrayElementUpperCase}`]){
+      resultObject[`${arrayElementUpperCase}`]+=1;
+    } else{
+      resultObject[`${arrayElementUpperCase}`]=1;
+    }
+  }
+  return console.log(resultObject);
+}
+
+countWords(array6);*/
+
+
+
+const array1 = [1,2,3];
+const array2 = array1;
+const array3 = array1.slice();
+array3.push(4)
+console.log(array1)
+console.log(array2)
+console.log(array3) 
+
+const [firstV, secondV] = [1,2,3];
+console.log(firstV, secondV);
+
+
+for (let i = 0; i<=10; i++){
+  
+  if (i===5){
+    continue
+  } 
+  
+  
+  if (i === 8){
+    break
+  }
+  console.log(i)
+}
+
+let ii= 1;
+while (ii<=10){
+  if (ii % 3 === 0){
+    ii++;
+    continue
+  }
+  console.log(ii)
+  ii++;
+}
+
+
+
+</script>
+
+</html>

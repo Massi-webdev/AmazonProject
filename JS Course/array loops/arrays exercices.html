@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+
+<body>
+    
+
+<script>/*
+// Exercice/1/2
+const array1 = ['a', 'b', 'c', 'd','b', ];
+
+for (let i=0; i<array1.length; i++){
+    if (array1[i]==='b') {
+        console.log(`The word you are looking for is on index ${i}`)
+        break;
+    } else {
+        console.log(`Your word was not found`)
+    }
+}
+// Exercice/3
+function findIndex(array, word){
+    for (let i=0; i<array.length; i++){
+        if (array[i]===word) {
+            console.log(`The word you are looking for is on index ${i}`)
+            break;
+        } else {
+            console.log(`Your word was not found`)
+        }
+    }
+}
+findIndex(array1, 'c')
+
+// exercice 4 / remove eggs
+const foodArray =['eggs', 'apple',  'eggs', 'pasta', 'ham', 'eggs', 'annanas']
+function removeEgg(foods){
+    for (let i=0; i<foods.length; i++){
+        if (foods[i]==='eggs'){
+            foods.splice(i,1)
+        }
+    }
+    return console.log(foods)
+}
+removeEgg(foodArray);
+
+
+// exercice 5 / remove 2 frist eggs
+const foodArray2 =['eggs', 'apple',  'eggs', 'pasta', 'ham', 'eggs', 'annanas'];
+function removeEgg2(foods){
+    let eggsCount = 0;
+    for (let i=0; i<foods.length; i++){
+        if (eggsCount<2){
+            eggsCount++
+
+            if (foods[i]==='eggs'){
+                foods.splice(i,1);
+            }
+        }
+    }
+    return console.log(foods)
+}
+
+removeEgg2(foodArray2);*/
+
+/*
+// exercice 5 / remove 2 LAST eggs (INVERTED)
+const foodArray3 =['eggs', 'apple',  'eggs', 'pasta', 'ham', 'eggs', 'annanas'];
+const foodArray4 = foodArray3.reverse()
+
+function removeEgg3(foods){
+    let eggsCount = 0;
+    for (let i=0; i<foods.length; i++){
+        if (eggsCount<2){
+            if (foods[i]==='eggs'){
+                foods.splice(i,1);
+                eggsCount++;
+            }
+        }
+    }
+    return console.log(foods.reverse())
+}
+removeEgg3(foodArray4);
+
+
+
+// exercice 6 / Create a new array that does not affect the first array
+const foodArray3 = ['eggs', 'apple',  'eggs', 'pasta', 'ham', 'eggs', 'annanas'];
+const foodArray4 = foodArray3.reverse();
+const foodArray5 = foodArray4.slice();
+
+function removeEgg3(foods){
+    let eggsCount = 0;
+    for (let i=0; i<foods.length; i++){
+        if (eggsCount<2){
+            if (foods[i]==='eggs'){
+                foods.splice(i,1);
+                eggsCount++;
+            }
+        }
+    }
+    return console.log(foods.reverse());
+}
+removeEgg3(foodArray5);
+console.log(foodArray4);
+
+
+// Chanllenge exercices 1
+
+for (i=1; i<=20; i++){
+    if (i%3===0 && i%5===0){
+        console.log('Fizz-Buzz');
+    }     
+    else if (i%3===0){
+        console.log('buzz');
+    } 
+    else if (i%5===0){
+        console.log('Fizz');
+    }
+    else {
+        console.log(i)
+    }
+}
+*/
+
+// Chanllenge exercices 2
+const arrayColors = ['green', 'red', 'blue', 'red', 'yellow'];
+
+function findIndex(array, word){
+    let wordRepetition = 0;
+
+    for (let i=0; i<array.length; i++){
+        if (array[i]===word){
+            wordRepetition++;
+            if (wordRepetition===2){
+                array.splice(i,1)
+            }
+        }
+    }
+    return console.log(array)
+}
+findIndex(arrayColors, 'red')
+
+//
+
+</script>
+</body>
+
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+  </style>
+</head>
+
+<body>
+  <p >Cart Quantity</p>
+  <button onclick="console.log(cart)">Show Quantity</button>
+  <button onclick="cart++;console.log(cart)">Add to cart</button>
+  <button onclick="cart+=2;console.log(cart)">+2</button>
+  <button onclick="cart+=3;console.log(cart)">+3</button>
+  <button onclick="cart=0; console.log(`Your cart has been reset to ${cart}`)">Reset Cart</button>
+  <script>
+    let cart = 0;
+  </script>
+
+</body>
+</html>
+
+

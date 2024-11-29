@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Head & Tail</title>
+</head>
+
+
+
+<body>
+  <button onclick="playGame('head')"> Head</button>
+  <button onclick="playGame('tail')"> Tail</button>
+  <button onclick="localStorage.removeItem('results');
+          results = {
+                      wins: 0,
+                      losses: 0
+                    };
+          console.log(results)
+  ">Clear scores</button>
+
+  <script>
+
+    let results = JSON.parse(localStorage.getItem('results')) ||
+    
+    {
+      wins: 0,
+      losses: 0
+    };
+    
+
+    function botPlayFunction(){
+      botPlay = Math.random();
+
+      if (botPlay>=0 && botPlay<=0.5){
+        botPlay='head' 
+      } else{
+        botPlay='tail'
+      }
+      return botPlay;
+    }
+
+
+    function playGame(userPlay){
+
+      botPlayFunction();
+
+      let botPlay = botPlayFunction();
+
+      if (botPlay===userPlay){  
+        alert(` 
+        AI:${botPlay} 
+        You:${userPlay} 
+        You win`);
+        results.wins+=1;
+      } 
+      
+      else {
+        alert(` 
+        AI:${botPlay} 
+        You:${userPlay} 
+        You lost`);
+        results.losses+=1;
+      }
+      console.log(results)
+      localStorage.setItem('results', JSON.stringify(results));
+    }
+  </script>
+</body>
+</html>
