@@ -71,7 +71,7 @@
     .product-name-container{
         margin-bottom: 5px;
         font-weight: 500;
-        height: 40px;
+        max-height: 60px;
     }
 
     .product-rating-container{
