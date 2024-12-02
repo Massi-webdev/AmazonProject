@@ -109,7 +109,24 @@
         flex: 1;
     }
 
-    .js-add-to-cart{
+    .js-added-to-cart{
+        display: flex;
+        align-items: center;
+        color: rgb(9, 109, 9);
+        opacity: 0;
+    }
+
+    .js-added-to-cart-on{
+        opacity: 1;
+    }
+        .added-icon{
+            height: 24px;
+            margin-right: 5px;
+        }
+
+    
+
+    .js-add-to-cart-button{
         background-color: rgb(255, 216, 20);
         border-radius: 50px;
         border: none;
