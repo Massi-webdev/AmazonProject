@@ -93,6 +93,7 @@ header{
             display: flex;
             align-items: center;
             border: 1px solid transparent;
+    
         }
 
         .js-added-to-cart{
@@ -105,4 +106,12 @@ header{
             .cart-icon{
                 width: 34px;
                 margin-right: 5px;
+            }
+
+            .cart-items-number{
+                position: absolute;
+                right: 63px;
+                top: 12px;
+                color: orange;
+                font-size: 14px;
             }

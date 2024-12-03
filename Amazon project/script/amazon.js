@@ -1,4 +1,6 @@
 ///////////////////// generate products HTML ///////////////////////////////////////////
+
+
 let productsHTML = "";
 
 products.forEach((product, index) => {
@@ -41,12 +43,15 @@ products.forEach((product, index) => {
                       Added
                     </div>
 
-                    <button class="js-add-to-cart-button js-add-to-cart-button-${index}" data-product-image="${product.image}" data-product-id="${product.id}" data-product-price="${product.priceCents}">Add to Cart</button>
+                    <button class="js-add-to-cart-button js-add-to-cart-button-${index}"  data-product-id="${product.id}">Add to Cart</button>
               </div>
   `
 })
 
 document.querySelector(".all-products-container").innerHTML=productsHTML;
+
+let totatCartItem = 0;
+countCartItems() // always show items on cart
 
 /*
 let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -59,19 +64,20 @@ document.querySelectorAll(".js-add-to-cart-button").
     AddToCartButton.addEventListener('click', ()=>{
 
       const productId = AddToCartButton.dataset.productId;  //store data in variable
-      const productImage = AddToCartButton.dataset.productImage; //store data in variable
-      const productPrice = AddToCartButton.dataset.productPrice; //store data in variable
 
       let matchingItem;
-
+      
       cart.forEach(item => {
         // if car item = product we want to add => matching = item
         if (productId=== item.id){
           matchingItem = item;
         } 
-        console.log('matchingItem')
+        
       });
     
+
+      document.querySelector(".js-cart-items-number").innerHTML=totatCartItem;
+
       //  number of items we want to add
       let ItemsNumber = Number(document.querySelector(`.js-quntity-selector-${index}`).value)
       
@@ -83,12 +89,14 @@ document.querySelectorAll(".js-add-to-cart-button").
       // else add it as new 
       else {
         cart.push({
-          image: productImage,
           id: productId,
-          price: productPrice,
           quantity: ItemsNumber
       });
       }
+      /// Count cart items
+      
+      countCartItems();
+
 
      // localStorage.setItem('cartItems', JSON.stringify(cart))
     
@@ -113,3 +121,15 @@ document.querySelectorAll(".js-add-to-cart-button").
   })
 
 })
+
+
+
+
+/// Function to count Items on cart and render the number ////////
+function countCartItems(){
+  totatCartItem = 0;
+  cart.forEach(item => {
+    totatCartItem+=item.quantity;
+  });
+  document.querySelector(".js-cart-items-number").innerHTML=totatCartItem;
+}
