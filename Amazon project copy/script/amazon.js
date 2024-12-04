@@ -1,5 +1,5 @@
 ///////////////////// generate products HTML ///////////////////////////////////////////
-import { cart } from "../data/cart.js";
+
 
 let productsHTML = "";
 
@@ -53,9 +53,10 @@ document.querySelector(".all-products-container").innerHTML=productsHTML;
 let totatCartItem = 0;
 countCartItems() // always show items on cart
 
-
-
-const timeOuts = [] //list of objects of differents timeout regenrated
+/*
+let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+console.log(cart);*/
+   
 //////////////// Make ADD to CART interactive //////////////////////////////////////////////////////
 
 document.querySelectorAll(".js-add-to-cart-button").
@@ -68,12 +69,14 @@ document.querySelectorAll(".js-add-to-cart-button").
       
       cart.forEach(item => {
         // if car item = product we want to add => matching = item
-        if (productId=== item.productId){
+        if (productId=== item.id){
           matchingItem = item;
         } 
+        
       });
-  
-      document.querySelector(".js-cart-items-number").innerHTML=totatCartItem;   //generate cart items HTML
+    
+
+      document.querySelector(".js-cart-items-number").innerHTML=totatCartItem;
 
       //  number of items we want to add
       let ItemsNumber = Number(document.querySelector(`.js-quntity-selector-${index}`).value)
@@ -90,33 +93,36 @@ document.querySelectorAll(".js-add-to-cart-button").
           quantity: ItemsNumber
       });
       }
-      /////////////// Count cart items///////////////////////////////////////////////////////////////////
+      /// Count cart items
+      
       countCartItems();
+
+
+     // localStorage.setItem('cartItems', JSON.stringify(cart))
+    
       console.log(cart);
 
-      
-      /////////////////////////////////////////////////////////////////// if indexedtimeout exist => clear
-      if (timeOuts[index]){
-        clearTimeout(timeOuts[index].on);
-        clearTimeout(timeOuts[index].off);
-      }
+      ///// Added to cart Message ///
+      let addedToCartONTimeOut;
+      let addedToCartOFFTimeOut;
 
-      /////////////////////////////// Added to cart Message /////////////////////////////////////////////
-      const addedToCartONTimeOut = setTimeout(() => {
+      addedToCartONTimeOut = setTimeout(() => {
         document.querySelector(`.js-added-to-cart-off-${index}`).classList.add(`js-added-to-cart-on`);
+        //addedToCart=true;
+        
       }, 0);
-      
-      const addedToCartOFFTimeOut = setTimeout(() => {
+
+      addedToCartOFFTimeOut = setTimeout(() => {
         document.querySelector(`.js-added-to-cart-off-${index}`).classList.remove(`js-added-to-cart-on`);
+        //addedToCart=false;
+        
       }, 2000);
       
-      ////////////////////////////////////////////////////list of objects of differents timeout regenrated
-      timeOuts[index] = {                              
-        on: addedToCartONTimeOut,
-        off: addedToCartOFFTimeOut
-      }
   })
+
 })
+
+
 
 
 /// Function to count Items on cart and render the number ////////

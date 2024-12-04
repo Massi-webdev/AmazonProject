@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style/body.css">  
+    <link rel="stylesheet" href="style/index.css">  
+    <link rel="stylesheet" href="style/header.css">  
+
+</head>
+
+<body>
+    <header>
+        <div class="left-section">
+            <a href="" class="header-link"><img src="images/amazon-logo-white.png" alt="" class="amazon-icon"></a>
+        </div>
+
+        <div class="middle-section">
+            <input class="js-search-input" type="text" placeholder="Search here !">
+            <button class="js-search-icon-button"><img class="js-search-icon" src="images/icons/search-icon.png" alt=""></button>
+        </div>
+
+        <div class="right-section">
+            <a class="order-return-link" href="">
+                <span>Orders</span>
+                <span>& returns</span>
+            </a>
+            <a class="cart-container" href="checkout.html">
+                <div>
+                    <img class="cart-icon" src="images/icons/cart-icon.png" alt="">
+                    <div class="js-cart-items-number cart-items-number"></div>
+                </div>
+                <div>
+                    Cart
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="all-products-container">
+
+        </div>
+    </main>
+
+    
+    <script src="script/products.js" ></script>
+    <script type="module" src="script/amazon.js" ></script>
+    
+</body>
+
+</html>
