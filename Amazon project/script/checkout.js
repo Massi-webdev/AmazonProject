@@ -1,75 +1,95 @@
-import { cart } from "../data/cart.js";
+import { cart, saveCartItem } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
 let cartItemsHTML = '';
 
 /////////////////////////// Compare each cart Item with products /////////////////////////
-cart.forEach((itemOnCart, index) => {   
+renderCartItems();
 
-  let matchingProduct; //if cart item = product => matching Item
+function renderCartItems(){
+  cart.forEach((itemOnCart, index) => {   
 
-  //----------------------Compare products with cart item to find the matching item
-  products.forEach((product)=>{ 
-    if(product.id===itemOnCart.productId){
-      matchingProduct=product
-    }
-  })
-
-
-  cartItemsHTML+=
-  `
-  <div class="js-cart-item">
-
-    <div class="delivery-date"> Delivery Date: <span class="js-delivery-date">Tuesday, December 10</span> </div>
-
-    <div class="Cart-item-details-grid">
-      <img src="${matchingProduct.image}" class="cart-item-image" alt="">
-
-      <div class="cart-item-details">
-        <div class="item-name">${matchingProduct.name}</div>
-        <div class="item-price">$${formatCurrency(matchingProduct.priceCents)}</div>
-        <div class="item-quantity">
-          <span>Quantiy: ${itemOnCart.quantity} </span> 
-          <span>Update</span>
-          <span>Delete</span>
+    let matchingProduct; //if cart item = product => matching Item
+  
+    //----------------------Compare products with cart item to find the matching item
+    products.forEach((product)=>{ 
+      if(product.id===itemOnCart.productId){
+        matchingProduct=product
+      }
+    })
+  
+  
+    cartItemsHTML+=
+    `
+    <div class="js-cart-item js-cart-item-${matchingProduct.id}">
+  
+      <div class="delivery-date"> Delivery Date: <span class="js-delivery-date">Tuesday, December 10</span> </div>
+  
+      <div class="Cart-item-details-grid">
+        <img src="${matchingProduct.image}" class="cart-item-image" alt="">
+  
+        <div class="cart-item-details">
+          <div class="item-name">${matchingProduct.name}</div>
+          <div class="item-price">$${formatCurrency(matchingProduct.priceCents)}</div>
+          <div class="item-quantity">
+            <span>Quantiy: ${itemOnCart.quantity} </span> 
+            <span class="js-update-item-${matchingProduct.id} update-item" data-cart-item-id="${matchingProduct.id}">Update</span>
+            <span class="js-delete-item-${matchingProduct.id} delete-item" data-cart-item-id="${matchingProduct.id}">Delete</span>
+          </div>
         </div>
+  
+        <div class="delivery-options">
+          <div class="delivery-options-title">Choose a delivery option:</div>
+  
+          <div class="js-delivery-option">
+            <input type="radio" name="delivery-option-${matchingProduct.id}">
+            <div>
+              <div class="delivery-option-date"> Tuesday, December 10 </div>
+              <div class="delivery-option-cost"> Free Shipping</div>
+            </div>
+          </div>
+  
+          <div class="js-delivery-option">
+            <input type="radio" name="delivery-option-${matchingProduct.id}">
+            <div>
+              <div class="delivery-option-date"> Tuesday, December 10 </div>
+              <div class="delivery-option-cost"> Free Shipping</div>
+            </div>
+          </div>
+  
+          <div class="js-delivery-option">
+            <input type="radio" name="delivery-option-${matchingProduct.id}">
+            <div>
+              <div class="delivery-option-date"> Tuesday, December 10 </div>
+              <div class="delivery-option-cost"> Free Shipping</div>
+            </div>
+          </div>
+  
+        </div>
+        <div></div>
       </div>
-
-      <div class="delivery-options">
-        <div class="delivery-options-title">Choose a delivery option:</div>
-
-        <div class="js-delivery-option">
-          <input type="radio" name="delivery-option-${matchingProduct.id}">
-          <div>
-            <div class="delivery-option-date"> Tuesday, December 10 </div>
-            <div class="delivery-option-cost"> Free Shipping</div>
-          </div>
-        </div>
-
-        <div class="js-delivery-option">
-          <input type="radio" name="delivery-option-${matchingProduct.id}">
-          <div>
-            <div class="delivery-option-date"> Tuesday, December 10 </div>
-            <div class="delivery-option-cost"> Free Shipping</div>
-          </div>
-        </div>
-
-        <div class="js-delivery-option">
-          <input type="radio" name="delivery-option-${matchingProduct.id}">
-          <div>
-            <div class="delivery-option-date"> Tuesday, December 10 </div>
-            <div class="delivery-option-cost"> Free Shipping</div>
-          </div>
-        </div>
-
-      </div>
-      <div></div>
     </div>
-  </div>
-  `
-  document.querySelector('.js-cart-summary').innerHTML= cartItemsHTML
-});
+    `
+    document.querySelector('.js-cart-summary').innerHTML= cartItemsHTML
+  });
+}
+
 
 
   
+////////////////////////// Make Delete buttons interactives //////////////////////////////
+document.querySelectorAll('.delete-item').forEach((deleteButton, index) => {
+  deleteButton.addEventListener('click',()=>{
+    
+   cart.splice(index,1);
+    saveCartItem();
+    let cartItemID = deleteButton.dataset.cartItemId;
+    console.log(cartItemID);
+
+    document.querySelector(`.js-cart-item-${cartItemID}`).remove();
+    console.log(cart)
+  })
+  
+  
+})

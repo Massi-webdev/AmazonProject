@@ -85,6 +85,13 @@ main{
             font-weight: 700;
             margin-bottom: 7px;
           }
+
+              .delete-item,
+              .update-item{
+                cursor: pointer;
+                color: rgb(32, 132, 165);
+              }
+  
   
 
   .delivery-options{
