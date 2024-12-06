@@ -1,5 +1,5 @@
 ///////////////////// generate products HTML ///////////////////////////////////////////
-import { cart, updateCartQuntity, AddToCart } from "../data/cart.js";
+import { cart, updateCartQuntity, AddToCart, saveCartItem } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 // Render Cart Items at the beginning ///////
