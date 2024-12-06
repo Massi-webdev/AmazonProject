@@ -1,10 +1,11 @@
 import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { formatCurrency } from "./utils/money.js";
 
 let cartItemsHTML = '';
 
 /////////////////////////// Compare each cart Item with products /////////////////////////
-cart.forEach(itemOnCart => {   
+cart.forEach((itemOnCart, index) => {   
 
   let matchingProduct; //if cart item = product => matching Item
 
@@ -14,8 +15,6 @@ cart.forEach(itemOnCart => {
       matchingProduct=product
     }
   })
-
-
 
 
   cartItemsHTML+=
@@ -29,7 +28,7 @@ cart.forEach(itemOnCart => {
 
       <div class="cart-item-details">
         <div class="item-name">${matchingProduct.name}</div>
-        <div class="item-price">$${(matchingProduct.priceCents/100).toFixed(2)}</div>
+        <div class="item-price">$${formatCurrency(matchingProduct.priceCents)}</div>
         <div class="item-quantity">
           <span>Quantiy: ${itemOnCart.quantity} </span> 
           <span>Update</span>
@@ -41,7 +40,7 @@ cart.forEach(itemOnCart => {
         <div class="delivery-options-title">Choose a delivery option:</div>
 
         <div class="js-delivery-option">
-          <input type="radio">
+          <input type="radio" name="delivery-option-${matchingProduct.id}">
           <div>
             <div class="delivery-option-date"> Tuesday, December 10 </div>
             <div class="delivery-option-cost"> Free Shipping</div>
@@ -49,7 +48,7 @@ cart.forEach(itemOnCart => {
         </div>
 
         <div class="js-delivery-option">
-          <input type="radio">
+          <input type="radio" name="delivery-option-${matchingProduct.id}">
           <div>
             <div class="delivery-option-date"> Tuesday, December 10 </div>
             <div class="delivery-option-cost"> Free Shipping</div>
@@ -57,7 +56,7 @@ cart.forEach(itemOnCart => {
         </div>
 
         <div class="js-delivery-option">
-          <input type="radio">
+          <input type="radio" name="delivery-option-${matchingProduct.id}">
           <div>
             <div class="delivery-option-date"> Tuesday, December 10 </div>
             <div class="delivery-option-cost"> Free Shipping</div>
