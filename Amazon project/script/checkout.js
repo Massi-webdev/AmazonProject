@@ -84,13 +84,16 @@ function renderCartItems(){
 document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
   deleteLink.addEventListener('click',()=>{
     
-   //cart.splice(index,1); //------------- method 2
-   // saveCartItem();
+    //cart.splice(index,1);                          //------------- method 2
+    saveCartItem();
     const cartItemID = deleteLink.dataset.cartItemId;
     removeFromCart(cartItemID);
     saveCartItem();
 
-    //document.querySelector(`.js-cart-item-${cartItemID}`).remove(); //-- method 2
+    const container = document.querySelector(`.js-cart-item-${cartItemID}`);
+
+    container.remove();
+    
     console.log(cart)
   })
 })
