@@ -1,5 +1,5 @@
 
-export const cart = JSON.parse(localStorage.getItem('CartItems')) || [ ]
+export let cart = JSON.parse(localStorage.getItem('CartItems')) || [ ]
 
 
 ////////////////////////// Function to count Items on cart and render the number /////////////////////////
@@ -46,4 +46,18 @@ export function AddToCart(productId, index){
 /////////////////////////////// Function to save the cart items /////////////////////////////////////////
 export function saveCartItem(){
   localStorage.setItem('CartItems', JSON.stringify(cart))
+}
+
+
+
+
+//////////////////////// Function remove item form car //////////////////////////////////////////////////
+export function removeFromCart(productId){
+  const newCart = [];
+  cart.forEach((cartItem)=>{
+    if (cartItem.productId!==productId){
+      newCart.push(cartItem);
+    }
+  })
+  cart = newCart;
 }

@@ -1,4 +1,4 @@
-import { cart, saveCartItem } from "../data/cart.js";
+import { cart, saveCartItem, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
@@ -59,7 +59,7 @@ function renderCartItems(){
           </div>
   
           <div class="js-delivery-option">
-            <input type="radio" name="delivery-option-${matchingProduct.id}">
+            <input type="radio" name="delivery-option-${matchingProduct.id}">z
             <div>
               <div class="delivery-option-date"> Tuesday, December 10 </div>
               <div class="delivery-option-cost"> Free Shipping</div>
@@ -79,17 +79,19 @@ function renderCartItems(){
 
   
 ////////////////////////// Make Delete buttons interactives //////////////////////////////
-document.querySelectorAll('.delete-item').forEach((deleteButton, index) => {
-  deleteButton.addEventListener('click',()=>{
-    
-   cart.splice(index,1);
-    saveCartItem();
-    let cartItemID = deleteButton.dataset.cartItemId;
-    console.log(cartItemID);
+//// Method1 --------------------------- delete from cart + delete html element
 
-    document.querySelector(`.js-cart-item-${cartItemID}`).remove();
+document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
+  deleteLink.addEventListener('click',()=>{
+    
+   //cart.splice(index,1); //------------- method 2
+   // saveCartItem();
+    const cartItemID = deleteLink.dataset.cartItemId;
+    removeFromCart(cartItemID);
+    saveCartItem();
+
+    //document.querySelector(`.js-cart-item-${cartItemID}`).remove(); //-- method 2
     console.log(cart)
   })
-  
-  
 })
+
