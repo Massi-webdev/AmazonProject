@@ -33,7 +33,7 @@ function renderCartItems(){
         <div class="cart-item-details">
           <div class="item-name">${matchingProduct.name}</div>
           <div class="item-price">$${formatCurrency(matchingProduct.priceCents)}</div>
-          <div class="item-quantity">
+          <div class="item-quantity item-quantity-${matchingProduct.id}" data-cart-item-id="${matchingProduct.id}">
             <span>Quantiy: ${itemOnCart.quantity} </span> 
             <span class="js-update-item-${matchingProduct.id} update-item" data-cart-item-id="${matchingProduct.id}">Update</span>
             <span class="js-delete-item-${matchingProduct.id} delete-item" data-cart-item-id="${matchingProduct.id}">Delete</span>
@@ -79,7 +79,7 @@ function renderCartItems(){
 
 
   
-////////////////////////// Make Delete buttons interactives //////////////////////////////
+////////////////////////// Make Delete Links interactives //////////////////////////////
 //// Method1 --------------------------- delete from cart + delete html element
 
 document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
@@ -102,6 +102,58 @@ document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
     console.log(cart)
   })
 })
+
+
+
+//////////////////////////////////// Make Update Links Interactive ////////////////////////////////////////////
+document.querySelectorAll(".update-item").forEach((updateLink)=>{
+  updateLink.addEventListener('click', ()=>{
+
+    const productID = updateLink.dataset.cartItemId;
+
+    document.querySelector(`.item-quantity-${productID}`).innerHTML=
+    `
+        <span> Quantiy: <input class="update-input js-unpdate-input-${productID}" type="number" value="1"> </span> 
+        <span class="js-save-item-${productID} save-item" data-cart-item-id="${productID}">Save</span>
+        <span class="js-delete-item-${productID} delete-item" data-cart-item-id="${productID}">Delete</span>
+    `
+
+//////----------------------------------------------------------------------------- Make Save Link Interactive 
+    document.querySelector(`.js-save-item-${productID}`).addEventListener('click', ()=>{
+        const updateInputElement = document.querySelector(`.js-unpdate-input-${productID}`);
+        cart.forEach(cartItem =>{
+          if (cartItem.productId===productID){
+            cartItem.quantity = Number(updateInputElement.value);
+            saveCartItem();
+            updateCheckoutHeaderLink();
+          };
+        });
+        console.log(cart);
+        document.querySelector(`.item-quantity-${productID}`).innerHTML= 
+        `
+          <span> Quantiy: ${updateInputElement.value} </span> 
+          <span class="js-update-item-${productID} update-item" data-cart-item-id="${productID}">Update</span>
+          <span class="js-delete-item-${productID} delete-item" data-cart-item-id="${productID}">Delete</span>
+        `
+      });
+  });
+});
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/*
+`
+<div class="item-quantity item-quantity-${matchingProduct.id}" data-cart-item-id="${matchingProduct.id}">
+  <span> Quantiy: ${itemOnCart.quantity} </span> 
+  <span class="js-update-item-${matchingProduct.id} update-item" data-cart-item-id="${matchingProduct.id}">Update</span>
+  <span class="js-delete-item-${matchingProduct.id} delete-item" data-cart-item-id="${matchingProduct.id}">Delete</span>
+</div>
+`
+*/
+
+
+
 
 /////////////////////////////////////// Update checkout Header link ////////////////////////////////////////
 function updateCheckoutHeaderLink(){

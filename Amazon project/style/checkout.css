@@ -86,13 +86,30 @@ main{
             margin-bottom: 7px;
           }
 
+              .update-input{
+                width: 25px;
+                height: 20px;
+                font-size: 15px;
+                font-weight: 700;
+                color: rgb(185, 124, 49);
+                margin-right: 6px;
+              }
+
+              
+              .save-item,
               .delete-item,
               .update-item{
                 cursor: pointer;
                 color: rgb(32, 132, 165);
+                                margin-left: 6px;
               }
   
-  
+              .update-input:active,
+              .save-item:active,
+              .delete-item:active,
+              .update-item:active{
+                color: rgb(252, 147, 0);
+              }
 
   .delivery-options{
     margin-right: 20px;
