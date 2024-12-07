@@ -66,12 +66,12 @@ main{
 
       .cart-item-details{
         width: 300px;
-        margin-left: 10px;
+        margin-left: 15px;
       }
 
           .cart-item-image{
             max-width: 100%;
-            max-height: 120px;
+            max-height: 100px;
             margin-left: auto;
             margin-right: auto;
           }
@@ -88,8 +88,8 @@ main{
 
               .update-input{
                 width: 25px;
-                height: 20px;
-                font-size: 15px;
+                height: 22px;
+                font-size: 17px;
                 font-weight: 700;
                 color: rgb(185, 124, 49);
                 margin-right: 6px;
@@ -101,7 +101,7 @@ main{
               .update-item{
                 cursor: pointer;
                 color: rgb(32, 132, 165);
-                                margin-left: 6px;
+                margin-left: 6px;
               }
   
               .update-input:active,
@@ -113,7 +113,7 @@ main{
 
   .delivery-options{
     margin-right: 20px;
-    width: 250px;
+    width: 200px;
   }
       .delivery-options-title{
         font-weight: 700;

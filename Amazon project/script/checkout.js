@@ -60,7 +60,7 @@ function renderCartItems(){
           </div>
   
           <div class="js-delivery-option">
-            <input type="radio" name="delivery-option-${matchingProduct.id}">z
+            <input type="radio" name="delivery-option-${matchingProduct.id}">
             <div>
               <div class="delivery-option-date"> Tuesday, December 10 </div>
               <div class="delivery-option-cost"> Free Shipping</div>
@@ -113,7 +113,7 @@ document.querySelectorAll(".update-item").forEach((updateLink)=>{
 
     document.querySelector(`.item-quantity-${productID}`).innerHTML=
     `
-        <span> Quantiy: <input class="update-input js-unpdate-input-${productID}" type="number" value="1"> </span> 
+        <span> Quantiy: <input class="update-input js-unpdate-input-${productID}" type="number" min="1" value="1"> </span> 
         <span class="js-save-item-${productID} save-item" data-cart-item-id="${productID}">Save</span>
         <span class="js-delete-item-${productID} delete-item" data-cart-item-id="${productID}">Delete</span>
     `
