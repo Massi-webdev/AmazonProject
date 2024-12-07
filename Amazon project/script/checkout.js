@@ -105,11 +105,5 @@ document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
 
 /////////////////////////////////////// Update checkout Header link ////////////////////////////////////////
 function updateCheckoutHeaderLink(){
-  let totatCartItem = 0;
-
-  cart.forEach(item => {
-    totatCartItem+=item.quantity;
-  });
-
-  document.querySelector('.js-checkout-link').innerHTML = totatCartItem;
+  document.querySelector('.js-checkout-link').innerHTML = updateCartQuntity();
 }

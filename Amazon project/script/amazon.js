@@ -74,7 +74,8 @@ document.querySelectorAll(".js-add-to-cart-button").
 
       AddToCart(productId, index);
   
-      updateCartQuntity();
+      
+      document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();
 
       AddedTimeOuts(index);
   })

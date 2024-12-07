@@ -8,7 +8,7 @@ export function updateCartQuntity(){
   cart.forEach(item => {
     totatCartItem+=item.quantity;
   });
-  document.querySelector(".js-cart-items-number").innerHTML=totatCartItem;
+  
   return totatCartItem
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
