@@ -83,8 +83,9 @@ main{
       }
 
           .cart-item-image{
+            max-height: 80px;
+            object-fit: contain;
             max-width: 100%;
-            max-height: 100px;
             margin-left: auto;
             margin-right: auto;
           }
@@ -126,7 +127,7 @@ main{
 
   .delivery-options{
     margin-right: 20px;
-    width: 220px;
+    width: 250px;
   }
       .delivery-options-title{
         font-weight: 700;

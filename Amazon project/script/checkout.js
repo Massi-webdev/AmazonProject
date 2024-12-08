@@ -38,7 +38,7 @@ function renderCartItems(){
     `
     <div class="js-cart-item js-cart-item-${matchingProduct.id}">
   
-      <div class="delivery-date"> Delivery Date: <span class="js-delivery-date">Tuesday, December 10</span> </div>
+      <div class="delivery-date delivery-date-${matchingProduct.id}"> Delivery Date: <span class="js-delivery-date">Tuesday, December 10</span> </div>
   
       <div class="Cart-item-details-grid">
         <img src="${matchingProduct.image}" class="cart-item-image" alt="">
@@ -57,7 +57,7 @@ function renderCartItems(){
           <div class="delivery-options-title">Choose a delivery option:</div>
   
           <div class="js-delivery-option">
-            <input type="radio" name="delivery-option-${matchingProduct.id}">
+            <input type="radio" name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-date="${deliveryDate1}">
             <div>
               <div class="delivery-option-date"> ${deliveryDate1}  </div>
               <div class="delivery-option-cost"> Free Shipping</div>
@@ -65,7 +65,7 @@ function renderCartItems(){
           </div>
   
           <div class="js-delivery-option">
-            <input type="radio" name="delivery-option-${matchingProduct.id}">
+            <input type="radio" name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-date="${deliveryDate2}">
             <div>
               <div class="delivery-option-date"> ${deliveryDate2} </div>
               <div class="delivery-option-cost"> $4.99 - Shipping</div>
@@ -73,7 +73,7 @@ function renderCartItems(){
           </div>
   
           <div class="js-delivery-option">
-            <input type="radio" name="delivery-option-${matchingProduct.id}">
+            <input type="radio" name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-date="${deliveryDate3}">
             <div>
               <div class="delivery-option-date"> ${deliveryDate3}  </div>
               <div class="delivery-option-cost"> $9.99 - Shipping</div>
@@ -89,6 +89,28 @@ function renderCartItems(){
   });
 }
 //--------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+/////////////////////////////////////// Update delivery date when clicking on date  with event listeners ////////////////////////////////////////////
+document.querySelectorAll(".js-input-delivery-option").forEach(input =>{
+  
+  input.addEventListener('click', ()=>{
+
+    const productId = input.dataset.productId;
+    const deliveryDate = input.dataset.deliveryDate;
+
+    document.querySelector(`.delivery-date-${productId}`).innerHTML=`Delivery Date: ${deliveryDate}`;
+
+  })
+})
+//----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
   
@@ -162,6 +184,11 @@ function updateCheckoutTotalItem(){
   //document.querySelector('.js-order-summary-total-items').innerHTML = `Items (${updateCartQuntity()}):`;
 }
 //--------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
 
