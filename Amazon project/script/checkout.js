@@ -67,7 +67,7 @@ function renderCartItems(){
             <input type="radio" name="delivery-option-${matchingProduct.id}">
             <div>
               <div class="delivery-option-date"> ${deliveryDate2} </div>
-              <div class="delivery-option-cost"> Free Shipping</div>
+              <div class="delivery-option-cost"> $4.99 - Shipping</div>
             </div>
           </div>
   
@@ -75,7 +75,7 @@ function renderCartItems(){
             <input type="radio" name="delivery-option-${matchingProduct.id}">
             <div>
               <div class="delivery-option-date"> ${deliveryDate3}  </div>
-              <div class="delivery-option-cost"> Free Shipping</div>
+              <div class="delivery-option-cost"> $9.99 - Shipping</div>
             </div>
           </div>
   
@@ -157,5 +157,5 @@ document.querySelectorAll(".update-item").forEach((updateLink)=>{
 
 /////////////////////////////////////// Update checkout Header link ////////////////////////////////////////////////////////
 function updateCheckoutHeaderLink(){
-  document.querySelector('.js-checkout-link').innerHTML = updateCartQuntity();
+  document.querySelector('.js-checkout-link').innerHTML = `${updateCartQuntity()} Items`;
 }
