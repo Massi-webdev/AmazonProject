@@ -31,7 +31,9 @@
 
 
   <main>
+    
     <div class="page-title">Review your order</div>
+
     <section class="checkout-grid"> 
 
       <div class="js-cart-summary cart-summary">
@@ -49,8 +51,8 @@
                 <div class="payment-summary-title"> Order Summary </div>
           
                 <div class="payment-summary-row">
-                  <div>Items (7):</div>
-                  <div class="payment-summary-money"> $55.93 </div>
+                  <div class="js-order-summary-total-items">Items (0):</div>
+                  <div class="payment-summary-money"> $0.00 </div>
                 </div>
           
                 <div class="payment-summary-row">
@@ -58,19 +60,19 @@
                   <div class="payment-summary-money"> $0.00 </div>
                 </div>
           
-                <div class="payment-summary-row subtotal-row">
-                  <div>Total before tax:</div>
-                  <div class="payment-summary-money"> $55.93 </div>
+                <div class="payment-summary-row subtotal-row js-subtotal-row">
+                  <div class="total-before-tax">Total before tax:</div>
+                  <div class="payment-summary-money payment-summary-money-tbt"> $0.00 </div>
                 </div>
           
                 <div class="payment-summary-row">
                   <div>Estimated tax (10%):</div>
-                  <div class="payment-summary-money"> $5.59 </div>
+                  <div class="payment-summary-money"> $0.00 </div>
                 </div>
           
                 <div class="payment-summary-row total-row">
                   <div>Order total:</div>
-                  <div class="payment-summary-money"> $61.52 </div>
+                  <div class="payment-summary-money"> $0.00 </div>
                 </div>
           </div>
 
@@ -86,13 +88,16 @@
                   Place your order
                 </button>
           </div>
+
         </div>
+
     </section>
+
   </main>
 </body>
 
-<script src="https://unpkg.com/supersimpledev@1.0.1/hello.js"></script>
-<script src="https://unpkg.com/dayjs@1.11.10/dayjs.min.js"></script>
+
+
 
 <script type="module" src="script/checkout.js"></script>
 

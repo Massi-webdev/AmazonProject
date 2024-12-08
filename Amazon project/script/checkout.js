@@ -1,23 +1,24 @@
 import { cart, saveCartItem, removeFromCart, updateCartQuntity } from "../data/cart.js";
 import { products } from "../data/products.js";
-import { formatCurrency } from "./utils/money.js";
-
+import formatCurrency from "./utils/money.js";
+import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"
 
 ///////////////////////Get Delivery Dates using an external libraray //////////////////////////////////////////////////////
-const date = dayjs();
+const today = dayjs();
 
-const deliveryDate1 = date.add(9, 'days').format("dddd, MMMM DD");
-const deliveryDate2 = date.add(3, 'days').format("dddd, MMMM DD");
-const deliveryDate3 = date.add(1, 'days').format("dddd, MMMM DD");
+const deliveryDate1 = today.add(9, 'days').format("dddd, MMMM DD");
+const deliveryDate2 = today.add(3, 'days').format("dddd, MMMM DD");
+const deliveryDate3 = today.add(1, 'days').format("dddd, MMMM DD");
 //--------------------------------------------------------------------------------------------------------------------------
 
-
+hello();
 
 
 /////////////////////////// Compare each cart Item with products /////////////////////////////////////////////////////////
 let cartItemsHTML = '';
 
-updateCheckoutHeaderLink();
+updateCheckoutTotalItem();
 renderCartItems();
 
 function renderCartItems(){
@@ -105,7 +106,7 @@ document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
 
     saveCartItem();
     
-    updateCheckoutHeaderLink();
+    updateCheckoutTotalItem();
 
     const container = document.querySelector(`.js-cart-item-${cartItemID}`);
 
@@ -138,7 +139,7 @@ document.querySelectorAll(".update-item").forEach((updateLink)=>{
           if (cartItem.productId===productID){
             cartItem.quantity = Number(updateInputElement.value);
             saveCartItem();
-            updateCheckoutHeaderLink();
+            updateCheckoutTotalItem();
           };
         });
         console.log(cart);
@@ -156,6 +157,55 @@ document.querySelectorAll(".update-item").forEach((updateLink)=>{
 
 
 /////////////////////////////////////// Update checkout Header link ////////////////////////////////////////////////////////
-function updateCheckoutHeaderLink(){
+function updateCheckoutTotalItem(){
   document.querySelector('.js-checkout-link').innerHTML = `${updateCartQuntity()} Items`;
+  //document.querySelector('.js-order-summary-total-items').innerHTML = `Items (${updateCartQuntity()}):`;
 }
+//--------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+/*
+          <div class="js-payment-info">
+                <div class="payment-summary-title"> Order Summary </div>
+          
+                <div class="payment-summary-row">
+                  <div class="js-order-summary-total-items">Items (7):</div>
+                  <div class="payment-summary-money"> $55.93 </div>
+                </div>
+          
+                <div class="payment-summary-row">
+                  <div>Shipping &amp; handling:</div>
+                  <div class="payment-summary-money"> $0.00 </div>
+                </div>
+          
+                <div class="payment-summary-row subtotal-row">
+                  <div>Total before tax:</div>
+                  <div class="payment-summary-money"> $55.93 </div>
+                </div>
+          
+                <div class="payment-summary-row">
+                  <div>Estimated tax (10%):</div>
+                  <div class="payment-summary-money"> $5.59 </div>
+                </div>
+          
+                <div class="payment-summary-row total-row">
+                  <div>Order total:</div>
+                  <div class="payment-summary-money"> $61.52 </div>
+                </div>
+          </div>
+
+          <div class="paypal-toggle">
+                Use PayPal <input type="checkbox" class="js-paypal-toggle" false="">
+          </div>
+
+          <div class="js-payment-buttons-container false">
+
+                <div class="js-paypal-button-container paypal-button-container" ></div>
+        
+                <button class="js-place-order-button place-order-button button-primary" d>
+                  Place your order
+                </button>
+          </div>
+*/

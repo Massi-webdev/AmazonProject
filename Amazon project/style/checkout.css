@@ -1,8 +1,18 @@
+/* General ----------------------------------------------------------------------*/
 body{
   font-family: Roboto, Arial;
   margin-top: 100px;
 }
 
+main{
+  margin: 200px;
+  display: flex;
+  flex-direction: column;
+} 
+
+
+
+/* Header -------------------------------------------------------------------------*/
 .checkout-header-container{
   display: flex;
   justify-content: space-between;
@@ -31,12 +41,7 @@ body{
 
 
 
-
-main{
-  margin: 200px;
-  display: flex;
-  flex-direction: column;
-} 
+/* Cart Items -------------------------------------------------------------------------*/
   .page-title{
     font-weight: 700;
     font-size: 20px;
@@ -140,9 +145,46 @@ main{
             color: rgb(107, 107, 107);
           }
 
-      .cart-summary{
-        
-      }
-      .payment-summary{
-        
-      }
+
+
+/* Order Summary ---------------------------------------------------------------------*/  
+.payment-summary{
+  border: 1px solid rgb(195, 195, 195);
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  height: 100%;
+}
+    .payment-summary-title{
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+        .payment-summary-row{
+          display: flex;
+          margin-bottom: 10px;
+          justify-content: space-between;
+        }
+
+        .subtotal-row {
+          margin-top: 20px;
+        }
+  
+        .total-before-tax{
+          border-top: 1px solid rgb(255, 255, 255);
+          padding-top: 10px;
+        }
+
+        .payment-summary-money-tbt{
+          border-top: 1px solid rgb(185, 185, 185);
+          padding-top: 10px;
+        }
+
+        .total-row{
+          color: rgb(165, 8, 8);
+          font-weight: 700;
+          font-size: 18px;
+          border-top: 1px solid rgb(185, 185, 185);
+          padding-top: 10px;
+        }
+
