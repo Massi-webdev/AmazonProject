@@ -2,9 +2,21 @@ import { cart, saveCartItem, removeFromCart, updateCartQuntity } from "../data/c
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
+
+///////////////////////Get Delivery Dates using an external libraray //////////////////////////////////////////////////////
+const date = dayjs();
+
+const deliveryDate1 = date.add(9, 'days').format("dddd, MMMM DD");
+const deliveryDate2 = date.add(3, 'days').format("dddd, MMMM DD");
+const deliveryDate3 = date.add(1, 'days').format("dddd, MMMM DD");
+//--------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+/////////////////////////// Compare each cart Item with products /////////////////////////////////////////////////////////
 let cartItemsHTML = '';
 
-/////////////////////////// Compare each cart Item with products /////////////////////////
 updateCheckoutHeaderLink();
 renderCartItems();
 
@@ -46,7 +58,7 @@ function renderCartItems(){
           <div class="js-delivery-option">
             <input type="radio" name="delivery-option-${matchingProduct.id}">
             <div>
-              <div class="delivery-option-date"> Tuesday, December 10 </div>
+              <div class="delivery-option-date"> ${deliveryDate1}  </div>
               <div class="delivery-option-cost"> Free Shipping</div>
             </div>
           </div>
@@ -54,7 +66,7 @@ function renderCartItems(){
           <div class="js-delivery-option">
             <input type="radio" name="delivery-option-${matchingProduct.id}">
             <div>
-              <div class="delivery-option-date"> Tuesday, December 10 </div>
+              <div class="delivery-option-date"> ${deliveryDate2} </div>
               <div class="delivery-option-cost"> Free Shipping</div>
             </div>
           </div>
@@ -62,7 +74,7 @@ function renderCartItems(){
           <div class="js-delivery-option">
             <input type="radio" name="delivery-option-${matchingProduct.id}">
             <div>
-              <div class="delivery-option-date"> Tuesday, December 10 </div>
+              <div class="delivery-option-date"> ${deliveryDate3}  </div>
               <div class="delivery-option-cost"> Free Shipping</div>
             </div>
           </div>
@@ -75,11 +87,11 @@ function renderCartItems(){
     document.querySelector('.js-cart-summary').innerHTML= cartItemsHTML
   });
 }
-
+//--------------------------------------------------------------------------------------------------------------------------
 
 
   
-////////////////////////// Make Delete Links interactives //////////////////////////////
+////////////////////////// Make Delete Links interactives //////////////////////////////////////////////////////////////////
 //// Method1 --------------------------- delete from cart + delete html element
 
 document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
@@ -102,10 +114,11 @@ document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
     console.log(cart)
   })
 })
+//--------------------------------------------------------------------------------------------------------------------------
 
 
 
-//////////////////////////////////// Make Update Links Interactive ////////////////////////////////////////////
+//////////////////////////////////// Make Update Links Interactive //////////////////////////////////////////////////////////
 document.querySelectorAll(".update-item").forEach((updateLink)=>{
   updateLink.addEventListener('click', ()=>{
 
@@ -138,24 +151,11 @@ document.querySelectorAll(".update-item").forEach((updateLink)=>{
       });
   });
 });
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------------------------------------------------
 
 
 
-/*
-`
-<div class="item-quantity item-quantity-${matchingProduct.id}" data-cart-item-id="${matchingProduct.id}">
-  <span> Quantiy: ${itemOnCart.quantity} </span> 
-  <span class="js-update-item-${matchingProduct.id} update-item" data-cart-item-id="${matchingProduct.id}">Update</span>
-  <span class="js-delete-item-${matchingProduct.id} delete-item" data-cart-item-id="${matchingProduct.id}">Delete</span>
-</div>
-`
-*/
-
-
-
-
-/////////////////////////////////////// Update checkout Header link ////////////////////////////////////////
+/////////////////////////////////////// Update checkout Header link ////////////////////////////////////////////////////////
 function updateCheckoutHeaderLink(){
   document.querySelector('.js-checkout-link').innerHTML = updateCartQuntity();
 }
