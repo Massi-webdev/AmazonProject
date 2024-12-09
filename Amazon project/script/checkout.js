@@ -3,25 +3,20 @@ import { products } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"
+import { deliveryOptions} from "../data/deliveryOptions.js"
 
-///////////////////////Get Delivery Dates using an external libraray //////////////////////////////////////////////////////
-const today = dayjs();
-
-const deliveryDate1 = today.add(9, 'days').format("dddd, MMMM DD");
-const deliveryDate2 = today.add(3, 'days').format("dddd, MMMM DD");
-const deliveryDate3 = today.add(1, 'days').format("dddd, MMMM DD");
-//--------------------------------------------------------------------------------------------------------------------------
-
-hello();
 
 
 /////////////////////////// Compare each cart Item with products /////////////////////////////////////////////////////////
-let cartItemsHTML = '';
+
+
 
 updateCheckoutTotalItem();
 renderCartItems();
 
+
 function renderCartItems(){
+  let cartItemsHTML = '';
   cart.forEach((itemOnCart, index) => {   
 
     let matchingProduct; //if cart item = product => matching Item
@@ -53,55 +48,75 @@ function renderCartItems(){
           </div>
         </div>
   
-        <div class="delivery-options">
-          <div class="delivery-options-title">Choose a delivery option:</div>
-  
-          <div class="js-delivery-option">
-            <input type="radio" name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-date="${deliveryDate1}">
-            <div>
-              <div class="delivery-option-date"> ${deliveryDate1}  </div>
-              <div class="delivery-option-cost"> Free Shipping</div>
+        <div class="all-delivery-options">
+        
+            <div class="delivery-options-title">Choose a delivery option:</div>
+            
+            <div class="js-delivery-options-container">
+              ${deliveryOptionHTML(matchingProduct)}
             </div>
-          </div>
-  
-          <div class="js-delivery-option">
-            <input type="radio" name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-date="${deliveryDate2}">
-            <div>
-              <div class="delivery-option-date"> ${deliveryDate2} </div>
-              <div class="delivery-option-cost"> $4.99 - Shipping</div>
-            </div>
-          </div>
-  
-          <div class="js-delivery-option">
-            <input type="radio" name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-date="${deliveryDate3}">
-            <div>
-              <div class="delivery-option-date"> ${deliveryDate3}  </div>
-              <div class="delivery-option-cost"> $9.99 - Shipping</div>
-            </div>
-          </div>
   
         </div>
-        <div></div>
+        
       </div>
+
     </div>
     `
-    document.querySelector('.js-cart-summary').innerHTML= cartItemsHTML
+    document.querySelector('.js-cart-summary').innerHTML= cartItemsHTML;
+    
   });
+  
 }
-//--------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+
+
+
+///////////////////////////////////////////////////////// DELIVERY DATES CODE //////////////////////////////////////////////
+
+// 1. loop throught delivery OPTIONS and generate delivery date html ----------------------------------------------------------------------
+
+
+function deliveryOptionHTML(matchingProduct){
+
+  let html = '';
+  
+  deliveryOptions.forEach(deliveryOption=>{
+
+    ///--------------------Get Delivery Dates using an external libraray 
+    const today = dayjs();
+    const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+    const dateString = deliveryDate.format('dddd, MMMM DD');
+    
+    const priceString = deliveryOption.priceCents=== 0 ? 'Free' :  `$ ${formatCurrency(deliveryOption.priceCents)} -`;
+  
+    /// ----------------- generate html from delivery options
+    html += 
+      `
+        <div class="js-delivery-option">
+          <input type="radio" name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}">
+          <div>
+            <div class="delivery-option-date"> ${dateString}</div>
+            <div class="delivery-option-cost"> ${priceString} Shipping</div>
+          </div>
+        </div>
+      `
+  })
+  return html;
+}
 
 
 
 
-/////////////////////////////////////// Update delivery date when clicking on date  with event listeners ////////////////////////////////////////////
+
+/////////////////////////////////////// Update delivery  automatically  + update date when clicking on date  with event listeners ///////////////////
 document.querySelectorAll(".js-input-delivery-option").forEach(input =>{
   
   input.addEventListener('click', ()=>{
 
     const productId = input.dataset.productId;
-    const deliveryDate = input.dataset.deliveryDate;
+    
 
-    document.querySelector(`.delivery-date-${productId}`).innerHTML=`Delivery Date: ${deliveryDate}`;
+    //document.querySelector(`.delivery-date-${productId}`).innerHTML=`Delivery Date: ${}`;
 
   })
 })
@@ -137,7 +152,7 @@ document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
     console.log(cart)
   })
 })
-//--------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -186,7 +201,10 @@ function updateCheckoutTotalItem(){
 //--------------------------------------------------------------------------------------------------------------------------
 
 
+/////////////////////////////////////// Count order Total //////////////////////////////////////////////////////////////////
+function countTotal(){
 
+}
 
 
 
