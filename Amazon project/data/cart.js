@@ -36,7 +36,8 @@ export function AddToCart(productId, index){
     cart.push({
       productId,
       quantity: ItemsNumber,
-      deliveryOptionId:1
+      deliveryOptionId:1,
+      shippingPrice:0
   });
   }
   saveCartItem()
