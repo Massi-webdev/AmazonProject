@@ -1,4 +1,4 @@
-import { cart, saveCartItem, removeFromCart, updateCartQuntity } from "../data/cart.js";
+import { cart, saveCartItem, removeFromCart, updateCartQuntity, updateDeliveryOption } from "../data/cart.js";
 import { products } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
@@ -12,8 +12,7 @@ import { deliveryOptions} from "../data/deliveryOptions.js"
 updateCheckoutTotalItem();      //Update items numbers HTML (header + order summury items)
 renderCartItems();              //Create cart Items HTML
 countOrderTotal();              //total order price
-
-console.log(cart)
+console.log(cart);
 
 
 /////////////////////////////////////////////// Create cart Items HTML ///////////////////////////////////////////////
@@ -39,10 +38,8 @@ function renderCartItems(){
     let selectedDeliveryOption;
 
     deliveryOptions.forEach(option => {
-      if (Number(option.id)===deliveryOptionId){
+      if (option.id===deliveryOptionId){ 
         selectedDeliveryOption = option;
-        console.log('yes')
-        console.log(selectedDeliveryOption.deliveryDays)
       };   
     })
 
@@ -106,14 +103,18 @@ function deliveryOptionHTML(matchingProduct, itemOnCart){
     
     const priceString = deliveryOption.priceCents=== 0 ? 'Free' :  `$ ${formatCurrency(deliveryOption.priceCents)} -`;
   
-    const isChecked = deliveryOption.id===itemOnCart.deliveryOptionId;
+    const state = 'checked'
+
+    const isChecked = itemOnCart.deliveryOptionId==deliveryOption.id
+
+
 
 
     /// ----------------- generate html from delivery options
     html += 
       `
         <div class="js-delivery-option">
-          <input type="radio" ${isChecked ? 'checked' : ''} name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-input-id="${index+1}" data-item-id="${matchingProduct.id}">
+          <input type="radio" ${isChecked ? 'checked' :""} name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}"  data-delivery-option-id="${index+1}" >
           <div>
             <div class="delivery-option-date"> ${dateString}</div>
             <div class="delivery-option-cost"> ${priceString} Shipping</div>
@@ -126,39 +127,35 @@ function deliveryOptionHTML(matchingProduct, itemOnCart){
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 2. Update delivery  automatically  + update date when clicking on date  with event listeners ---------------------------
+// 2. Update date when clicking on date  with event listeners -------------------------------------------------------------
 
 document.querySelectorAll(".js-input-delivery-option").forEach(input =>{
   
   input.addEventListener('click', ()=>{
   
-    const inputId = input.dataset.inputId;
-    const itemId = input.dataset.itemId;
+    const {productId, deliveryOptionId} = input.dataset; // shorthand property (shortcut)
+  
+    updateDeliveryOption(productId, deliveryOptionId);
     
     let selectedDeliveryDate;
 
     deliveryOptions.forEach(option =>{
-
-
       //------------------------Update delivery date of each product 
-        if (option.id===inputId){
-          selectedDeliveryDate = dayjs().add((option.deliveryDays), 'days').format('dddd, MMMM DD'); 
+       if (option.id===deliveryOptionId){
+          const selecteDeliveryDays = option.deliveryDays;
+          selectedDeliveryDate = dayjs().add((selecteDeliveryDays), 'days').format('dddd, MMMM DD'); 
 
         //----------------------Update order total after choosing shipping option 
           cart.forEach(cartItem=>{
-            if (itemId === cartItem.productId){
+            if (productId === cartItem.productId){
               cartItem.shippingPrice = option.priceCents;
             }
           });
-      //-----------------------------------------------------------------------------------------------------------------------
-
+      
         } 
       });
-
-      document.querySelector(`.delivery-date-${itemId}`).innerHTML=`Delivery Date: ${selectedDeliveryDate}`;
-      
-      //-------------------------------------------------------------------------------------------------------------------------
-      
+      document.querySelector(`.delivery-date-${productId}`).innerHTML=`Delivery Date: ${selectedDeliveryDate}`;
+    
   // ----- recalculate total
   countOrderTotal();
   console.log(cart)
@@ -277,8 +274,6 @@ function countOrderTotal(){
       }
     });
   });
-  
-  console.log(ShippingPriceTotal)
 
   const totalBeforeTax = orderTotal + ShippingPriceTotal;
   const tax = totalBeforeTax * 0.1
