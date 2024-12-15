@@ -1,24 +1,26 @@
 import { cart, updateCartQuntity } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products, getProduct } from "../../data/products.js";
 import { formatCurrency} from "../utils/money.js"
 
 /////////////////////////////////////// Count order Total //////////////////////////////////////////////////////////////////
+
 export function countOrderTotal(){
 
     let orderTotal = 0;
     let ShippingPriceTotal = 0;
-  
+    
+    
     cart.forEach(cartItem=>{
-  
-      const cartItemId = cartItem.productId;
-  
-      ShippingPriceTotal+=cartItem.shippingPrice;
       
-      products.forEach(product =>{
-        if(cartItemId===product.id){
-          orderTotal+=product.priceCents * cartItem.quantity;
-        }
-      });
+      const productId = cartItem.productId;
+      
+      const matchingProduct = getProduct(productId);               // get matchingProduct using imported function
+
+      orderTotal+=matchingProduct.priceCents * cartItem.quantity;  //count matching product and it's order quantity
+  
+      ShippingPriceTotal+=cartItem.shippingPrice;                  //count each item's shipping price
+
+      
     });
   
     const totalBeforeTax = orderTotal + ShippingPriceTotal;

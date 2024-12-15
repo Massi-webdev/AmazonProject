@@ -1,22 +1,16 @@
+import { products, getProduct} from "../../data/products.js";
 import { cart, saveCartItem, removeFromCart, updateCartQuntity, updateDeliveryOption } from "../../data/cart.js";
-import { products } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
-import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js" //default export
 import { deliveryOptions} from "../../data/deliveryOptions.js"
 import { countOrderTotal } from "./paymentSummary.js";
-
 
 /// Used MVC (Model -> View -> controller) loop method
 // Model to generate the view and then interact with view through the controller to finally update and rerender the model
 // This mode makes sure that the page always matches data
 // MVP => design pattern like famous frameworks
 
-
-
-
-renderOrderSummary();           //Create cart Items HTML
-countOrderTotal();              //total order price
 console.log(cart);
 
 
@@ -29,16 +23,18 @@ export function renderOrderSummary(){
 
   /// ---------------------Compare products with cart item to find the matching item
   cart.forEach((itemOnCart, index) => {   
+ 
+    const productId = itemOnCart.productId;
+    let matchingProduct = getProduct(productId);
 
-    let matchingProduct; //if cart item = product => matching Item
-  
-    //----------------------Comparaison
     products.forEach((product)=>{ 
-      if(product.id===itemOnCart.productId){
-        matchingProduct=product
+      if(product.id === productId){
+        matchingProduct = product;
       }
-    })
+    }) 
+      
   
+
     // This partt is to generate delivery date html when loading the page based on saved delivery option
     const deliveryOptionId = itemOnCart.deliveryOptionId;
     
@@ -50,11 +46,13 @@ export function renderOrderSummary(){
         selectedDeliveryOption = option;
       };   
     })
-
+    
     const today = dayjs();
     const deliveryDate = today.add(selectedDeliveryOption.deliveryDays, 'days');
     const dateString = deliveryDate.format('dddd, MMMM DD');
   
+    
+
     cartItemsHTML+=
     `
     <div class="js-cart-item js-cart-item-${matchingProduct.id}">
@@ -175,6 +173,7 @@ export function renderOrderSummary(){
               if (productId === cartItem.productId){
                 cartItem.shippingPrice = option.priceCents;
               }
+              saveCartItem();   //save after each choice;
             });
         
           } 
@@ -196,8 +195,8 @@ export function renderOrderSummary(){
 
   ////////////////////////// Make Delete Links interactives //////////////////////////////////////////////////////////////////
   //// Method1 --------------------------- delete from cart + delete html element
-  //deleteItemFromCart()                      //--Method 3: reRender the whole html after each delete without DOM deleting
-  //function deleteItemFromCart(){
+  deleteItemFromCart()                      //--Method 3: reRender the whole html after each delete without DOM deleting
+  function deleteItemFromCart(){
     document.querySelectorAll('.delete-item').forEach((deleteLink, index) => {
       deleteLink.addEventListener('click',()=>{
         
@@ -234,7 +233,7 @@ export function renderOrderSummary(){
         ;
       })
     })
-  //}
+  };
 
   //---------------------------------------------------------------------------------------------------------------------------
 
@@ -275,7 +274,7 @@ export function renderOrderSummary(){
               <span class="js-delete-item-${productID} delete-item" data-cart-item-id="${productID}">Delete</span>
             `
             UpdateCartItems(); //-- Call the same function to create event listener for newly rendered update     links
-            deleteItemFromCart() //-- Call the same function to create event listener for newly rendered Delete    links
+            deleteItemFromCart(); //-- Call the same function to create event listener for newly rendered Delete    links
           });
       });
     });
