@@ -114,7 +114,7 @@ export function renderOrderSummary(){
   function deliveryOptionHTML(matchingProduct, itemOnCart){
 
     let html = '';
-    deliveryOptions.forEach((deliveryOption, index)=>{
+    deliveryOptions.forEach((deliveryOption)=>{
       
       ///--------------------Get Dates using an external libraray Dayjs()
       const deliveryDays = deliveryOption.deliveryDays;
@@ -128,7 +128,7 @@ export function renderOrderSummary(){
       html += 
         `
           <div class="js-delivery-option">
-            <input type="radio" ${isChecked ? 'checked' :""} name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}"  data-delivery-option-id="${index+1}" >
+            <input type="radio" ${isChecked ? 'checked' :""} name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}"  data-delivery-option-id="${deliveryOption.id}" >
             <div>
               <div class="delivery-option-date"> ${deliveryDate}</div>
               <div class="delivery-option-cost"> ${priceString} Shipping</div>
@@ -250,13 +250,19 @@ export function renderOrderSummary(){
               };
             });
             console.log(cart);
-            document.querySelector(`.item-quantity-${productID}`).innerHTML= 
+
+            //Method1:
+            /*document.querySelector(`.item-quantity-${productID}`).innerHTML= 
             `
               <span> Quantiy: ${updateInputElement.value} </span> 
               <span class="js-update-item-${productID} update-item" data-cart-item-id="${productID}">Update</span>
               <span class="js-delete-item-${productID} delete-item" data-cart-item-id="${productID}">Delete</span>
-            `
-            UpdateCartItems(); //-- Call the same function to create event listener for newly rendered update     links
+            `*/
+            
+            //Method2:
+            renderOrderSummary(); //-- Rerender order summary instead of using Single DOM element modification
+
+            UpdateCartItems();    //-- Call the same function to create event listener for newly rendered update     links
             deleteItemFromCart(); //-- Call the same function to create event listener for newly rendered Delete    links
           });
       });
