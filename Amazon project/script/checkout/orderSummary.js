@@ -4,7 +4,7 @@ import formatCurrency from "../utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js" //default export
 import { deliveryOptions, getDeliveryOption} from "../../data/deliveryOptions.js"
-import { countOrderTotal } from "./paymentSummary.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 // Used MVC (Model -> View -> controller) loop method
 // Model to generate the view and then interact with view through the controller to finally update and rerender the model
@@ -166,7 +166,7 @@ export function renderOrderSummary(){
         
       
     // ----- recalculate total
-    countOrderTotal();
+    renderPaymentSummary()
     console.log(cart)
     });
     
@@ -200,7 +200,7 @@ export function renderOrderSummary(){
         //container.remove();
         
         // -- recalculate total;
-        countOrderTotal();
+        renderPaymentSummary();
         console.log(cart);
         if (!cart[0]){
           document.querySelector(".checkout-grid").innerHTML=
@@ -263,7 +263,7 @@ export function renderOrderSummary(){
           });
       });
     });
-    countOrderTotal() //-- recalculate total after updating car items quantity
+    renderPaymentSummary(); //-- recalculate total after updating car items quantity
   }
   //--------------------------------------------------------------------------------------------------------------------------
 

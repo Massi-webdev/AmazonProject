@@ -5,7 +5,7 @@ import { getDeliveryOption } from "../../data/deliveryOptions.js";
 
 /////////////////////////////////////// Count order Total //////////////////////////////////////////////////////////////////
 
-export function countOrderTotal(){
+export function renderPaymentSummary(){
 
     let orderTotal = 0;
     let ShippingPriceTotal = 0;
