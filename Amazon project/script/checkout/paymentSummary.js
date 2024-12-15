@@ -1,6 +1,7 @@
 import { cart, updateCartQuntity } from "../../data/cart.js";
 import { products, getProduct } from "../../data/products.js";
 import { formatCurrency} from "../utils/money.js"
+import { getDeliveryOption } from "../../data/deliveryOptions.js";
 
 /////////////////////////////////////// Count order Total //////////////////////////////////////////////////////////////////
 
@@ -8,23 +9,25 @@ export function countOrderTotal(){
 
     let orderTotal = 0;
     let ShippingPriceTotal = 0;
-    
-    
+        
     cart.forEach(cartItem=>{
       
       const productId = cartItem.productId;
+      const deliveryOptionId = cartItem.deliveryOptionId;
       
-      const matchingProduct = getProduct(productId);               // get matchingProduct using imported function
-
-      orderTotal+=matchingProduct.priceCents * cartItem.quantity;  //count matching product and it's order quantity
+      //---- get the cart product and all its price data.
+      const matchingProduct = getProduct(productId);                 // get matchingProduct using imported function
+      orderTotal += matchingProduct.priceCents * cartItem.quantity;  //count matching product and it's order quantity
   
-      ShippingPriceTotal+=cartItem.shippingPrice;                  //count each item's shipping price
-
+      
+      //----calc shipping prices
+      const deliveryPrice = getDeliveryOption(deliveryOptionId);     
+      ShippingPriceTotal += deliveryPrice.priceCents;                //count all items' shipping prices
       
     });
   
     const totalBeforeTax = orderTotal + ShippingPriceTotal;
-    const tax = totalBeforeTax * 0.1
+    const tax = totalBeforeTax * 0.1;
     const totalAfterTax = totalBeforeTax + tax;
   
     document.querySelector('.js-payment-summary').innerHTML=

@@ -3,13 +3,13 @@ import { cart, saveCartItem, removeFromCart, updateCartQuntity, updateDeliveryOp
 import formatCurrency from "../utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js" //default export
-import { deliveryOptions} from "../../data/deliveryOptions.js"
+import { deliveryOptions, getDeliveryOption} from "../../data/deliveryOptions.js"
 import { countOrderTotal } from "./paymentSummary.js";
 
-/// Used MVC (Model -> View -> controller) loop method
+// Used MVC (Model -> View -> controller) loop method
 // Model to generate the view and then interact with view through the controller to finally update and rerender the model
 // This mode makes sure that the page always matches data
-// MVP => design pattern like famous frameworks
+// MVC => design pattern like famous frameworks
 
 console.log(cart);
 
@@ -22,7 +22,7 @@ export function renderOrderSummary(){
   let cartItemsHTML = '';           
 
   /// ---------------------Compare products with cart item to find the matching item
-  cart.forEach((itemOnCart, index) => {   
+  cart.forEach((itemOnCart) => {   
  
     const productId = itemOnCart.productId;
     let matchingProduct = getProduct(productId);
@@ -33,59 +33,44 @@ export function renderOrderSummary(){
       }
     }) 
       
-  
-
     // This partt is to generate delivery date html when loading the page based on saved delivery option
     const deliveryOptionId = itemOnCart.deliveryOptionId;
-    
-    
-    let selectedDeliveryOption;
+    const selectedDeliveryOption = getDeliveryOption(deliveryOptionId);   //get delivery Option using imported function from deliveryOption.js
 
-    deliveryOptions.forEach(option => {
-      if (option.id===deliveryOptionId){ 
-        selectedDeliveryOption = option;
-      };   
-    })
-    
     const today = dayjs();
     const deliveryDate = today.add(selectedDeliveryOption.deliveryDays, 'days');
     const dateString = deliveryDate.format('dddd, MMMM DD');
   
-    
-
     cartItemsHTML+=
     `
     <div class="js-cart-item js-cart-item-${matchingProduct.id}">
   
-      <div class="delivery-date delivery-date-${matchingProduct.id}"> Delivery Date: ${dateString} </div>
-  
-      <div class="Cart-item-details-grid">
-        <img src="${matchingProduct.image}" class="cart-item-image" alt="">
-  
-        <div class="cart-item-details">
-          <div class="item-name">${matchingProduct.name}</div>
-          <div class="item-price">$${formatCurrency(matchingProduct.priceCents)}</div>
-          <div class="item-quantity item-quantity-${matchingProduct.id}" data-cart-item-id="${matchingProduct.id}">
-            <span>Quantiy: ${itemOnCart.quantity} </span> 
-            <span class="js-update-item-${matchingProduct.id} update-item" data-cart-item-id="${matchingProduct.id}">Update</span>
-            <span class="js-delete-item-${matchingProduct.id} delete-item" data-cart-item-id="${matchingProduct.id}">Delete</span>
-          </div>
-        </div>
-  
-        <div class="all-delivery-options">
-        
-            <div class="delivery-options-title">Choose a delivery option:</div>
-            
-            <div class="js-delivery-options-container">
-
-              ${deliveryOptionHTML(matchingProduct,itemOnCart)}  
-
+        <div class="delivery-date delivery-date-${matchingProduct.id}"> Delivery Date: ${dateString} </div>
+    
+        <div class="Cart-item-details-grid">
+          <img src="${matchingProduct.image}" class="cart-item-image" alt="">
+    
+          <div class="cart-item-details">
+            <div class="item-name">${matchingProduct.name}</div>
+            <div class="item-price">$${formatCurrency(matchingProduct.priceCents)}</div>
+            <div class="item-quantity item-quantity-${matchingProduct.id}" data-cart-item-id="${matchingProduct.id}">
+              <span>Quantiy: ${itemOnCart.quantity} </span> 
+              <span class="js-update-item-${matchingProduct.id} update-item" data-cart-item-id="${matchingProduct.id}">Update</span>
+              <span class="js-delete-item-${matchingProduct.id} delete-item" data-cart-item-id="${matchingProduct.id}">Delete</span>
             </div>
-  
-        </div>
-        
-      </div>
+          </div>
+    
+          <div class="all-delivery-options">
+          
+              <div class="delivery-options-title">Choose a delivery option:</div>
+              
+              <div class="js-delivery-options-container">
+                ${deliveryOptionHTML(matchingProduct,itemOnCart)}  
+              </div>
 
+          </div>
+
+      </div>
     </div>
     `
     
@@ -169,12 +154,12 @@ export function renderOrderSummary(){
             selectedDeliveryDate = dayjs().add((selecteDeliveryDays), 'days').format('dddd, MMMM DD'); 
 
           //----------------------Update order total after choosing shipping option 
-            cart.forEach(cartItem=>{
+           /* cart.forEach(cartItem=>{
               if (productId === cartItem.productId){
                 cartItem.shippingPrice = option.priceCents;
               }
               saveCartItem();   //save after each choice;
-            });
+            });*/
         
           } 
         });

@@ -37,7 +37,6 @@ export function AddToCart(productId, index){
       productId,
       quantity: ItemsNumber,
       deliveryOptionId:'1',
-      shippingPrice:0
   });
   }
   saveCartItem()
