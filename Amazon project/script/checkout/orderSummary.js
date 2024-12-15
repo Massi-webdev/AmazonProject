@@ -3,8 +3,9 @@ import { cart, saveCartItem, removeFromCart, updateCartQuntity, updateDeliveryOp
 import formatCurrency from "../utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js" //default export
-import { deliveryOptions, getDeliveryOption} from "../../data/deliveryOptions.js"
+import { deliveryOptions, getDeliveryOption, setDeliveryDate} from "../../data/deliveryOptions.js"
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { updateCheckoutHeader } from "./checkoutHeader.js";
 
 // Used MVC (Model -> View -> controller) loop method
 // Model to generate the view and then interact with view through the controller to finally update and rerender the model
@@ -14,10 +15,19 @@ import { renderPaymentSummary } from "./paymentSummary.js";
 console.log(cart);
 
 
+
+function isWeekend(date){
+  let verifiedDate = dayjs().add(date, 'days').format('dddd');
+  if (verifiedDate==='Saturday' || verifiedDate==='Sunday' ){
+    return verifiedDate;
+  } else {
+    return ' Not a weekend day';
+  }
+}
+console.log(isWeekend(1)); 
+
 /////////////////////////////////////////////// Create cart Items HTML ///////////////////////////////////////////////
 export function renderOrderSummary(){
-
-  updateCheckoutTotalItem();      //Update items numbers HTML (header + order summury items)
 
   let cartItemsHTML = '';           
 
@@ -37,10 +47,13 @@ export function renderOrderSummary(){
     const deliveryOptionId = itemOnCart.deliveryOptionId;
     const selectedDeliveryOption = getDeliveryOption(deliveryOptionId);   //get delivery Option using imported function from deliveryOption.js
 
-    const today = dayjs();
-    const deliveryDate = today.add(selectedDeliveryOption.deliveryDays, 'days');
-    const dateString = deliveryDate.format('dddd, MMMM DD');
+    const days = selectedDeliveryOption.deliveryDays;
+    const today = dayjs().add(selectedDeliveryOption.deliveryDays, 'days').format('dddd');
+    
+    const dateString = setDeliveryDate(days);
   
+
+    
     cartItemsHTML+=
     `
     <div class="js-cart-item js-cart-item-${matchingProduct.id}">
@@ -102,20 +115,14 @@ export function renderOrderSummary(){
 
     let html = '';
     deliveryOptions.forEach((deliveryOption, index)=>{
-
+      
       ///--------------------Get Dates using an external libraray Dayjs()
-      const today = dayjs();
-      const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-      const dateString = deliveryDate.format('dddd, MMMM DD');
+      const deliveryDays = deliveryOption.deliveryDays;
+      const deliveryDate = setDeliveryDate(deliveryDays);
       
       const priceString = deliveryOption.priceCents=== 0 ? 'Free' :  `$ ${formatCurrency(deliveryOption.priceCents)} -`;
     
-      const state = 'checked'
-
       const isChecked = itemOnCart.deliveryOptionId==deliveryOption.id
-
-
-
 
       /// ----------------- generate html from delivery options
       html += 
@@ -123,7 +130,7 @@ export function renderOrderSummary(){
           <div class="js-delivery-option">
             <input type="radio" ${isChecked ? 'checked' :""} name="delivery-option-${matchingProduct.id}" class="input-delivery-option js-input-delivery-option" data-product-id="${matchingProduct.id}"  data-delivery-option-id="${index+1}" >
             <div>
-              <div class="delivery-option-date"> ${dateString}</div>
+              <div class="delivery-option-date"> ${deliveryDate}</div>
               <div class="delivery-option-cost"> ${priceString} Shipping</div>
             </div>
           </div>
@@ -151,16 +158,7 @@ export function renderOrderSummary(){
         //------------------------Update delivery date of each product 
         if (option.id===deliveryOptionId){
             const selecteDeliveryDays = option.deliveryDays;
-            selectedDeliveryDate = dayjs().add((selecteDeliveryDays), 'days').format('dddd, MMMM DD'); 
-
-          //----------------------Update order total after choosing shipping option 
-           /* cart.forEach(cartItem=>{
-              if (productId === cartItem.productId){
-                cartItem.shippingPrice = option.priceCents;
-              }
-              saveCartItem();   //save after each choice;
-            });*/
-        
+            setDeliveryDate(selecteDeliveryDays);
           } 
         });
         
@@ -193,7 +191,7 @@ export function renderOrderSummary(){
         saveCartItem();
         renderOrderSummary();
 
-        updateCheckoutTotalItem();
+        updateCheckoutHeader();
     
         //------------------------------Method 3: reRender the whole html after each delete without DOM deleting
         //const container = document.querySelector(`.js-cart-item-${cartItemID}`); 
@@ -248,7 +246,7 @@ export function renderOrderSummary(){
               if (cartItem.productId===productID){
                 cartItem.quantity = Number(updateInputElement.value);
                 saveCartItem();
-                updateCheckoutTotalItem();
+                updateCheckoutHeader();
               };
             });
             console.log(cart);
@@ -266,15 +264,6 @@ export function renderOrderSummary(){
     renderPaymentSummary(); //-- recalculate total after updating car items quantity
   }
   //--------------------------------------------------------------------------------------------------------------------------
-
-
-
-  /////////////////////////////////////// Update checkout Header link ////////////////////////////////////////////////////////
-  function updateCheckoutTotalItem(){
-    document.querySelector('.js-checkout-link').innerHTML = `${updateCartQuntity()} Items`;
-    document.querySelector('.js-order-summary-total-items').innerHTML = `Items (${updateCartQuntity()}):`;
-  }
-
 }
 
 
