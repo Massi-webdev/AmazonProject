@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="style/checkout.css">
+</head>
+
+
+<body>
+  <header class="checkout-header-container">
+    <div class="checkout-left-section">
+      <a href="amazon.html"><img src="images/amazon-logo.png" alt=""></a>
+    </div>
+
+    <div class="checkout-middle-section">
+      Checkout (
+      <a href="amazon.html" class="js-checkout-link"></a>
+      )
+    </div>
+
+    <div class="checkout-right-section">
+      <img src="images/icons/checkout-lock-icon.png" alt="">
+    </div>
+
+  </header>
+
+
+  <main>
+    
+    <div class="page-title">Review your order</div>
+
+    <section class="checkout-grid"> 
+
+      <div class="js-cart-summary cart-summary">
+        <div data-testid="empty-cart-message">
+          Your cart is empty.
+        </div>
+        <a class="button-primary view-products-link" href="." data-testid="view-products-link">
+          View products
+        </a>
+      </div>
+
+      <div class="js-payment-summary payment-summary">
+
+        <div class="js-payment-info">
+              <div class="payment-summary-title"> Order Summary </div>
+        
+              <div class="payment-summary-row">
+                <div class="js-order-summary-total-items">Items (0):</div>
+                <div class="payment-summary-money"> $0.00 </div>
+              </div>
+        
+              <div class="payment-summary-row">
+                <div>Shipping &amp; handling:</div>
+                <div class="payment-summary-money"> $0.00 </div>
+              </div>
+        
+              <div class="payment-summary-row subtotal-row js-subtotal-row">
+                <div class="total-before-tax">Total before tax:</div>
+                <div class="payment-summary-money payment-summary-money-tbt"> $0.00 </div>
+              </div>
+        
+              <div class="payment-summary-row">
+                <div>Estimated tax (10%):</div>
+                <div class="payment-summary-money"> $0.00 </div>
+              </div>
+        
+              <div class="payment-summary-row total-row">
+                <div>Order total:</div>
+                <div class="payment-summary-money"> $0.00 </div>
+              </div>
+        </div>
+
+        <div class="paypal-toggle">
+              Use PayPal <input type="checkbox" class="js-paypal-toggle" false="">
+        </div>
+
+        <div class="js-payment-buttons-container false">
+
+              <div class="js-paypal-button-container paypal-button-container" ></div>
+      
+              <button class="js-place-order-button place-order-button button-primary" d>
+                Place your order
+              </button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+</body>
+
+
+
+
+<script type="module" src="script/checkout.js"></script>
+
+</html>

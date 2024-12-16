@@ -1,0 +1,191 @@
+/* General ----------------------------------------------------------------------*/
+body{
+  font-family: Roboto, Arial;
+  margin-top: 100px;
+}
+
+main{
+  margin: 200px;
+  display: flex;
+  flex-direction: column;
+} 
+
+
+
+/* Header -------------------------------------------------------------------------*/
+.checkout-header-container{
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  position: fixed;
+  align-items: center;
+  left: 350px;
+  right: 350px;
+  top: 0;
+}
+
+.checkout-left-section{
+  
+}
+  .checkout-left-section > a {
+
+  }
+    .checkout-left-section > a > img{
+      height: 35px;
+    }
+
+      .js-checkout-link{
+        text-decoration: none;
+        color: rgb(22, 131, 133);
+      }
+
+
+
+/* Cart Items -------------------------------------------------------------------------*/
+  .page-title{
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  .checkout-grid{
+    display: flex;
+    gap: 20px;
+  }
+
+
+
+  .js-cart-item{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 4px;
+    padding: 18px;
+  }
+        .delivery-date,
+        .js-delivery-date{
+          font-weight: 700;
+          font-size: 20px;
+          color: green;
+          margin-bottom: 15px;
+        }
+        
+
+
+
+
+  .Cart-item-details-grid{
+    display: flex;
+  }
+
+      .cart-item-details{
+        width: 300px;
+        margin-left: 15px;
+      }
+
+          .cart-item-image{
+            max-height: 80px;
+            object-fit: contain;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .item-name{
+            font-weight: 700;
+            margin-bottom: 7px;
+          }
+  
+          .item-price{
+            color: rgb(162, 25, 25);
+            font-weight: 700;
+            margin-bottom: 7px;
+          }
+
+              .update-input{
+                width: 25px;
+                height: 22px;
+                font-size: 17px;
+                font-weight: 700;
+                color: rgb(185, 124, 49);
+                margin-right: 6px;
+              }
+
+              
+              .save-item,
+              .delete-item,
+              .update-item{
+                cursor: pointer;
+                color: rgb(32, 132, 165);
+                margin-left: 6px;
+              }
+  
+              .update-input:active,
+              .save-item:active,
+              .delete-item:active,
+              .update-item:active{
+                color: rgb(252, 147, 0);
+              }
+
+  .all-delivery-options{
+    margin-right: 20px;
+    width: 250px;
+  }
+      .delivery-options-title{
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .js-delivery-option{
+        display: flex;
+        margin-bottom: 10px;
+      }
+          .delivery-option-date{
+            font-weight: 700;
+            color: green;
+          }
+          .delivery-option-cost{
+            color: rgb(107, 107, 107);
+          }
+
+
+
+/* Order Summary ---------------------------------------------------------------------*/  
+.payment-summary{
+  border: 1px solid rgb(195, 195, 195);
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  height: 100%;
+}
+    .payment-summary-title{
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+        .payment-summary-row{
+          display: flex;
+          margin-bottom: 10px;
+          justify-content: space-between;
+        }
+
+        .subtotal-row {
+          margin-top: 20px;
+        }
+  
+        .total-before-tax{
+          border-top: 1px solid rgb(255, 255, 255);
+          padding-top: 10px;
+        }
+
+        .payment-summary-money-tbt{
+          border-top: 1px solid rgb(185, 185, 185);
+          padding-top: 10px;
+        }
+
+        .total-row{
+          color: rgb(165, 8, 8);
+          font-weight: 700;
+          font-size: 18px;
+          border-top: 1px solid rgb(185, 185, 185);
+          padding-top: 10px;
+        }
+
