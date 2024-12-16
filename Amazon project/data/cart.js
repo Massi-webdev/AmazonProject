@@ -25,17 +25,17 @@ export function AddToCart(productId, index){
   });
 
   //  number of items we want to add
-  let ItemsNumber = Number(document.querySelector(`.js-quntity-selector-${index}`).value)
+  //let ItemsNumber = Number(document.querySelector(`.js-quntity-selector-${index}`).value)
   
   // if item already in the cart then just add +1
   if (matchingItem){
-    matchingItem.quantity += ItemsNumber;
+    matchingItem.quantity += 1;
   } 
   // else add it as new 
   else {
     cart.push({
       productId,
-      quantity: ItemsNumber,
+      quantity: 1,
       deliveryOptionId:'1',
   });
   }
