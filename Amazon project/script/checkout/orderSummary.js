@@ -179,7 +179,7 @@ export function renderOrderSummary(){
         saveCartItem();
         renderOrderSummary();
 
-        updateCheckoutHeader();
+        //updateCheckoutHeader();
     
         //------------------------------Method 3: reRender the whole html after each delete without DOM deleting
         //const container = document.querySelector(`.js-cart-item-${cartItemID}`); 
