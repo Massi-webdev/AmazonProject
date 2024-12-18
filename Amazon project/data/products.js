@@ -1,4 +1,4 @@
-
+import formatCurrency from "../script/utils/money.js";
 
 export function getProduct(productId) {
   //----------------------Comparaison
@@ -11,6 +11,28 @@ export function getProduct(productId) {
   });
   return matchingProduct;
 }
+
+/// Converting products OBJECT into a Product class   - Why ?  -> to get class features and use them for an object
+class Product {
+
+  constructor(productDetails){
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+  }
+
+  getStarsUrl(){
+    return `images/ratings/rating-${this.rating.stars*10}.png`;
+  };
+
+  getPrice(){
+    return formatCurrency(this.priceCents);
+  };
+}
+
+
 
 
 export const products = [
@@ -672,4 +694,9 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails)=>{  //map method is an array method that loops through an array and return an new array
+  return new Product(productDetails);
+});
+
+
+
