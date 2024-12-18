@@ -161,9 +161,7 @@ export function renderOrderSummary(){
 
 
 
-
-
-
+ 
   ////////////////////////// Make Delete Links interactives //////////////////////////////////////////////////////////////////
   //// Method1 --------------------------- delete from cart + delete html element
   deleteItemFromCart()                      //--Method 3: reRender the whole html after each delete without DOM deleting
@@ -209,11 +207,8 @@ export function renderOrderSummary(){
   //---------------------------------------------------------------------------------------------------------------------------
 
 
-
-
-
   //////////////////////////////////// Make Update Links Interactive //////////////////////////////////////////////////////////
-  //UpdateCartItems();
+  UpdateCartItems();
   function UpdateCartItems(){
     document.querySelectorAll(".update-item").forEach((updateLink)=>{
       updateLink.addEventListener('click', ()=>{
