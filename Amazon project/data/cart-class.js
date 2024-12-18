@@ -3,8 +3,8 @@ class Cart {
   
   // class property, it's like an object propertie / variable 
   //cartItems = undefined;  we can simply declare -- cartItems;
-  cartItems;
-  localStorageKey;
+  cartItems;         //public property : can be accessed anywhere
+  #localStorageKey;  //private property : used only inside the class  // not outside
 
 
   // Constructors : help us run code when creating an object
@@ -14,7 +14,7 @@ class Cart {
   constructor(localStorageKey){
 
       // Since localStorageKey is undefined, We have have define local storage for each new object to generate object
-      this.localStorageKey = localStorageKey;
+      this.#localStorageKey = localStorageKey;
 
       //Load cart from local storage
       this.loadFromStorage();
@@ -24,8 +24,8 @@ class Cart {
 
 
   // class method1
-  loadFromStorage() {          
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [{
+  #loadFromStorage() {             // make this method private too since we are using to set get item
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{
       productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       quantity: 1,
       deliveryOptionId: '1'
@@ -34,7 +34,7 @@ class Cart {
 
   // class method2
   saveCartItem(){
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems))
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems))
   }
 
   // class method3
@@ -109,9 +109,10 @@ console.log(businessCart);
 // To check if an object was generate by a class // a instance of a class
 console.log(businessCart instanceof Cart)   // =>  True
 
-
-
-
+cart.#localStorageKey = 'test';  // when working on a team somebody accidentily might change that
+console.log(cart.localStorageKey);
+// to avoid we add #before a property to make it private and not accessible from outside the class
+// ERROR => Private field '#localStorageKey' must be declared in an enclosing class 
 
 
 
