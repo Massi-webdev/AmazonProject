@@ -44,7 +44,7 @@ function Cart(localStorageKey){
   ////////////////////////// Function to count Items on cart and render the number /////////////////////////
   updateCartQuntity(){
     let totatCartItem = 0;
-    (this.cartItem).forEach(item => {
+    (this.cartItems).forEach(item => {
       totatCartItem+=item.quantity;
     });
     
@@ -55,7 +55,7 @@ function Cart(localStorageKey){
   //////////////////////// Function remove item form car //////////////////////////////////////////////////
   removeFromCart(productId){
     const newCart = [];
-    (this.cartItem).forEach((cartItem)=>{
+    (this.cartItems).forEach((cartItem)=>{
       if (cartItem.productId!==productId){
         newCart.push(cartItem);
       }
@@ -69,7 +69,7 @@ function Cart(localStorageKey){
   updateDeliveryOption(productId, deliveryOptionId){
     let matchingItem;
 
-    (this.cartItem).forEach(cartItem => {
+    (this.cartItems).forEach(cartItem => {
         if (productId=== cartItem.productId){
         matchingItem = cartItem;
       } 

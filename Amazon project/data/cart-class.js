@@ -17,7 +17,7 @@ class Cart {
       this.#localStorageKey = localStorageKey;
 
       //Load cart from local storage
-      this.loadFromStorage();
+      this.#loadFromStorage();
 
   }
 
@@ -63,7 +63,7 @@ class Cart {
   // class method4
   updateCartQuntity(){
     let totatCartItem = 0;
-    (this.cartItem).forEach(item => {
+    (this.cartItems).forEach(item => {
       totatCartItem+=item.quantity;
     });
     
@@ -73,7 +73,7 @@ class Cart {
   // class method5
   removeFromCart(productId){
     const newCart = [];
-    (this.cartItem).forEach((cartItem)=>{
+    (this.cartItems).forEach((cartItem)=>{
       if (cartItem.productId!==productId){
         newCart.push(cartItem);
       }
@@ -86,7 +86,7 @@ class Cart {
   updateDeliveryOption(productId, deliveryOptionId){
     let matchingItem;
 
-    (this.cartItem).forEach(cartItem => {
+    (this.cartItems).forEach(cartItem => {
         if (productId=== cartItem.productId){
         matchingItem = cartItem;
       } 
