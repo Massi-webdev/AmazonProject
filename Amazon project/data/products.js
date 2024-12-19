@@ -13,26 +13,24 @@ export function getProduct(productId) {
 }
 
 /// Converting products OBJECT into a Product class   - Why ?  -> to get class features and use them for an object
-class Product {
+class Product{
 
-  constructor(productDetails){
-    this.id = productDetails.id;
-    this.image = productDetails.image;
-    this.name = productDetails.name;
-    this.rating = productDetails.rating;
-    this.priceCents = productDetails.priceCents;
+  constructor(productDetail){
+    this.id = productDetail.id;
+    this.image = productDetail.image;
+    this.name = productDetail.name;
+    this.rating = productDetail.rating;
+    this.priceCents =productDetail.priceCents;
   }
 
   getStarsUrl(){
-    return `images/ratings/rating-${this.rating.stars*10}.png`;
+    return `images/ratings/rating-${this.rating.stars * 10}.png`
   };
 
   getPrice(){
     return formatCurrency(this.priceCents);
   };
-}
-
-
+};
 
 
 export const products = [
@@ -694,9 +692,10 @@ export const products = [
       "mens"
     ]
   }
-].map((productDetails)=>{  //map method is an array method that loops through an array and return an new array
-  return new Product(productDetails);
+].map(productDetail=>{
+  return new Product (productDetail);
 });
+
 
 
 

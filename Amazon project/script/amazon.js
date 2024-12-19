@@ -25,7 +25,7 @@ products.forEach((product, index) => {
                     </div>
 
                     <div class="product-price-container">
-                        ${product.getPrice()} $
+                        $${product.getPrice()} 
                     </div>
                     
                     <div class="product-quntity-container"> 
