@@ -3,8 +3,8 @@ class Cart {
   
   // class property, it's like an object propertie / variable 
   //cartItems = undefined;  we can simply declare -- cartItems;
-  cartItems;        //public property : can be accessed anywhere
-  localStorageKey;  //private property : used only inside the class  // not outside
+  cartItems;         //   public property : can be accessed anywhere
+  #localStorageKey;  // # private property : used only inside the class --- not outside 
 
   
   // Constructors : help us run code when creating an object
@@ -12,16 +12,16 @@ class Cart {
   // Good place to put setup code
 
   constructor(localStorageKey){
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage(); 
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage(); 
   }
  
 
 
 
   // class method1 -----------------------------------------------------------
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [{
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{
       productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       quantity: 1,
       deliveryOptionId: '1'
@@ -30,7 +30,7 @@ class Cart {
 
   // class method2 -----------------------------------------------------------
   saveCartItem(){
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems))
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems))
   };
 
   // class method3 -----------------------------------------------------------
@@ -108,10 +108,9 @@ console.log(!cart instanceof Cart)          // =>  False
 
 
 console.log(cart.localStorageKey);
-console.log(businessCart.localStorageKey);
+//console.log(businessCart.#localStorageKey);
 // to avoid we add #before a property to make it private and not accessible from outside the class
 // ERROR => Private field '#localStorageKey' must be declared in an enclosing class 
-
 
 
 
@@ -121,7 +120,7 @@ console.log(businessCart.localStorageKey);
 // Class  is a feature that helps us generate these objects   = Object Generatore
 
 // -------------------------------------------- Why should we use it ? --------------------------------------------
-// 1. Craete cleaner objects
+// 1. Create cleaner objects
 
 // 2. CONSTRUCTOR feature : let us run some setup code after creating an object
 // --- on the class obove we wrote some codes after the class but a constractor allows us to put that code inside
