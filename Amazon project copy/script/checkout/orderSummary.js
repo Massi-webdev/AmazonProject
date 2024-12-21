@@ -53,7 +53,7 @@ export function renderOrderSummary(){
     
           <div class="cart-item-details">
             <div class="item-name">${matchingProduct.name}</div>
-            <div class="item-price">$${formatCurrency(matchingProduct.priceCents)}</div>
+            <div class="item-price">$${matchingProduct.getPrice()}</div>
             <div class="item-quantity item-quantity-${matchingProduct.id}" data-cart-item-id="${matchingProduct.id}">
               <span>Quantiy: ${itemOnCart.quantity} </span> 
               <span class="js-update-item-${matchingProduct.id} update-item" data-cart-item-id="${matchingProduct.id}">Update</span>
@@ -161,9 +161,7 @@ export function renderOrderSummary(){
 
 
 
-
-
-
+ 
   ////////////////////////// Make Delete Links interactives //////////////////////////////////////////////////////////////////
   //// Method1 --------------------------- delete from cart + delete html element
   deleteItemFromCart()                      //--Method 3: reRender the whole html after each delete without DOM deleting
@@ -209,11 +207,8 @@ export function renderOrderSummary(){
   //---------------------------------------------------------------------------------------------------------------------------
 
 
-
-
-
   //////////////////////////////////// Make Update Links Interactive //////////////////////////////////////////////////////////
-  //UpdateCartItems();
+  UpdateCartItems();
   function UpdateCartItems(){
     document.querySelectorAll(".update-item").forEach((updateLink)=>{
       updateLink.addEventListener('click', ()=>{
