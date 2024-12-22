@@ -1,5 +1,5 @@
 //////////////////// Classes are object generators////////////////////
-class Cart {
+export class Cart {
   
   // class property, it's like an object propertie / variable 
   //cartItems = undefined;  we can simply declare -- cartItems;
@@ -43,7 +43,7 @@ class Cart {
   };
 
   // class method4 -----------------------------------------------------------
-  AddToCart(productId){
+  AddToCart(productId, selectedValue){
     let matchingItem;
     this.cartItems.forEach(cartItem => {
       if (productId=== cartItem.productId){
@@ -52,12 +52,16 @@ class Cart {
     });
 
     if (matchingItem){
-      matchingItem.quantity += 1;
+        if (selectedValue){
+          matchingItem.quantity += selectedValue;
+        } else {
+          matchingItem.quantity += 1;
+        }
     } 
     else {
       this.cartItems.push({
         productId,
-        quantity: 1,
+        quantity: selectedValue,
         deliveryOptionId:'1',
     });
     }
@@ -96,7 +100,7 @@ class Cart {
 
 
 // Syntax look like functions   +  new to create a new object
-const cart = new Cart('cart-oop');              // Each object we generate from a class, we call it instance of a classe.
+export const cart = new Cart('cart-oop');              // Each object we generate from a class, we call it instance of a classe.
 const businessCart = new Cart('cart-business'); // Each object we generate from a class, we call it instance of a classe.
 
 console.log(cart);

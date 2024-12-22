@@ -1,5 +1,6 @@
 import { products, getProduct} from "../../data/products.js";
-import { cart, saveCartItem, removeFromCart, updateCartQuntity, updateDeliveryOption, loadFromStorage } from "../../data/cart.js";
+import { cart } from "../../data/cart-class.js";
+
 import formatCurrency from "../utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js" //default export
@@ -12,7 +13,7 @@ import { updateCheckoutHeader } from "./checkoutHeader.js";
 // This mode makes sure that the page always matches data
 // MVC => design pattern like famous frameworks
 
-console.log(cart);
+console.log(cart.cartItems);
 
 
 /////////////////////////////////////////////// Create cart Items HTML ///////////////////////////////////////////////
@@ -21,7 +22,7 @@ export function renderOrderSummary(){
   let cartItemsHTML = '';           
 
   /// ---------------------Compare products with cart item to find the matching item
-  cart.forEach((itemOnCart) => {   
+  cart.cartItems.forEach((itemOnCart) => {   
  
     const productId = itemOnCart.productId;
     let matchingProduct = getProduct(productId);
@@ -75,7 +76,7 @@ export function renderOrderSummary(){
     </div>
     `
     
-    if (!cart[0].productId){
+    if (!cart.cartItems[0].productId){
       document.querySelector(".checkout-grid").innerHTML=
       `
       <div class="js-cart-summary cart-summary">
@@ -137,7 +138,7 @@ export function renderOrderSummary(){
     
       const {productId, deliveryOptionId} = input.dataset; // shorthand property (shortcut)
     
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       
       let selectedDeliveryDate;
@@ -152,8 +153,8 @@ export function renderOrderSummary(){
         
       
     // ----- recalculate total
-    renderPaymentSummary()
-    console.log(cart)
+    renderPaymentSummary();
+    console.log(cart.cartItems);
     });
     
   });
@@ -170,14 +171,15 @@ export function renderOrderSummary(){
       deleteLink.addEventListener('click',()=>{
         
         //cart.splice(index,1);                          //------------- method 2
-        saveCartItem();
+        
         const cartItemID = deleteLink.dataset.cartItemId;
     
-        removeFromCart(cartItemID);
-        saveCartItem();
+        cart.removeFromCart(cartItemID);
+        cart.saveCartItem();
+
         renderOrderSummary();
 
-        //updateCheckoutHeader();
+        updateCheckoutHeader();
     
         //------------------------------Method 3: reRender the whole html after each delete without DOM deleting
         //const container = document.querySelector(`.js-cart-item-${cartItemID}`); 
@@ -186,7 +188,7 @@ export function renderOrderSummary(){
         // -- recalculate total;
         renderPaymentSummary();
         console.log(cart);
-        if (!cart[0]){
+        if (!cart.cartItems[0]){
           document.querySelector(".checkout-grid").innerHTML=
           `
           <div class="js-cart-summary cart-summary">
@@ -225,11 +227,13 @@ export function renderOrderSummary(){
     //----------------------------------------------------------------------------- Make Save Link Interactive 
         document.querySelector(`.js-save-item-${productID}`).addEventListener('click', ()=>{
             const updateInputElement = document.querySelector(`.js-unpdate-input-${productID}`);
-            cart.forEach(cartItem =>{
+            cart.cartItems.forEach(cartItem =>{
               if (cartItem.productId===productID){
                 cartItem.quantity = Number(updateInputElement.value);
-                saveCartItem();
+
+                cart.saveCartItem();
                 updateCheckoutHeader();
+
               };
             });
             console.log(cart);

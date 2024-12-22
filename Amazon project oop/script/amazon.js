@@ -1,10 +1,11 @@
 ///////////////////// generate products HTML ///////////////////////////////////////////
-import { cart, updateCartQuntity, AddToCart, saveCartItem } from "../data/cart.js";
+import { cart } from "../data/cart-class.js";
+//import { cart, updateCartQuntity, AddToCart, saveCartItem } from "../data/cart.js";
 import { products } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
 
 // Render Cart Items at the beginning ///////
-document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();   //generate cart items HTML
+document.querySelector(".js-cart-items-number").innerHTML=cart.updateCartQuntity();   //generate cart items HTML
 
 let productsHTML = "";
 
@@ -60,9 +61,6 @@ document.querySelector(".all-products-container").innerHTML=productsHTML;
 
 
 
-
-
-
 //////////////// Make ADD to CART interactive ////////////////////////////////////////////////////////////////
 
 document.querySelectorAll(".js-add-to-cart-button").
@@ -73,9 +71,9 @@ document.querySelectorAll(".js-add-to-cart-button").
 
       const productId = AddToCartButton.dataset.productId;  // --------------- store data in variable
 
-      AddToCart(productId, selectedQuantity);
+      cart.AddToCart(productId, selectedQuantity);
   
-      document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();
+      document.querySelector(".js-cart-items-number").innerHTML=cart.updateCartQuntity();
 
       AddedTimeOuts(index);
   });
