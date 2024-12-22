@@ -1,17 +1,5 @@
 import formatCurrency from "../script/utils/money.js";
 
-export function getProduct(productId) {
-  //----------------------Comparaison
-  let matchingProduct; 
-  
-  products.forEach((product)=>{ 
-    if(product.id === productId){
-      matchingProduct = product;
-    }
-  });
-  return matchingProduct;
-}
-
 ///////////////////////////////////////////////////////////Parent Class/////////////////////////////////////////////////////////
 /// Converting products OBJECT into a Product class   - Why ?  -> to get class features and use them for an object
 export class Product{
@@ -37,7 +25,7 @@ export class Product{
   }
 };
 
-
+console.log('exported')
 
 //////////////////////////////////////////////////////// Child Class  INHERITANCE ///////////////////////////////////////////////
 // We are creating a child class for clothing,  using parent class of product ---------------------------------------------------
@@ -133,7 +121,7 @@ object2.method();  //=> undefined
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -816,5 +804,60 @@ export const products = [
     return new Product (productDetail);
   }
 });
+*/
 
-console.log(products);
+
+
+
+
+export let products = [];
+
+//Creating a function to be able to use backend data in other files and load data
+export function loadProduct(fun){
+
+  // using request built in class
+  const xhr = new XMLHttpRequest();
+
+  //Need time to get an answer from the backend
+  xhr.addEventListener('load',()=>{
+    products = xhr.response;
+    products = JSON.parse(products);
+    
+    products = products.map(productDetail=>{
+      if(productDetail.type==='clothing'){
+        return new Clothing (productDetail);
+      } 
+      else if (productDetail.type === 'appliances'){
+        return new Appliance(productDetail);
+      }
+      else{
+        return new Product (productDetail);
+      }
+    });
+    console.log('Loaded');
+    fun();  // This a callback  => function to run in the future => like renderProductGrid
+  })  
+
+  //Sending request
+  xhr.open('GET', 'https://supersimplebackend.dev/products'); 
+  xhr.send();
+}
+
+loadProduct();
+
+
+
+
+
+
+export function getProduct(productId) {
+  //----------------------Comparaison
+  let matchingProduct; 
+  
+  products.forEach((product)=>{ 
+    if(product.id === productId){
+      matchingProduct = product;
+    }
+  });
+  return matchingProduct;
+}

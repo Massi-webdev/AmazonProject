@@ -13,7 +13,6 @@ console.log(xhr) //show all the object methods
 // We don't get a response immediately, usually it takes some times milisec to secs.
 xhr.addEventListener('load', ()=>{             
   console.log(xhr.response);
-  
 });
 /// why response is before sending the request? because we need to setup an event listener before trigering it
 // like when we setup addevenlisteners and then click on buttons
