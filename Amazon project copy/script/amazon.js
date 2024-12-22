@@ -3,7 +3,6 @@ import { cart, updateCartQuntity, AddToCart, saveCartItem } from "../data/cart.j
 import { products } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
 
-
 // Render Cart Items at the beginning ///////
 document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();   //generate cart items HTML
 
@@ -30,7 +29,7 @@ products.forEach((product, index) => {
                     </div>
                     
                     <div class="product-quntity-container"> 
-                      <select class="js-quntity-selector js-quntity-selector-${index}">
+                      <select class="js-quantity-selector js-quantity-selector-${index}">
                         <option selected="" value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -66,26 +65,24 @@ document.querySelector(".all-products-container").innerHTML=productsHTML;
 
 //////////////// Make ADD to CART interactive ////////////////////////////////////////////////////////////////
 
-const timeOuts = [] // -------------------------    list of objects of differents timeout regenrated
-
-
 document.querySelectorAll(".js-add-to-cart-button").
   forEach((AddToCartButton, index) => {
     AddToCartButton.addEventListener('click', ()=>{
 
+      const selectedQuantity = Number(document.querySelector(`.js-quantity-selector-${index} `).value);
+
       const productId = AddToCartButton.dataset.productId;  // --------------- store data in variable
 
-      AddToCart(productId, index);
+      AddToCart(productId, selectedQuantity);
   
-      
       document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();
 
       AddedTimeOuts(index);
-  })
+  });
 })
 
 
-
+const timeOuts = [] // -------------------------    list of objects of differents timeout regenrated
 ///////////////////////////////////////////// ADDED Timeouts //////////////////////////////////////////////////
       // ------------------------------------------------------------------- if indexedtimeout exist => clear
       function AddedTimeOuts(index){

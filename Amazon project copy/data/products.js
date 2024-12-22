@@ -12,9 +12,9 @@ export function getProduct(productId) {
   return matchingProduct;
 }
 
-///////////////////////////////////////////////////////////Parent Class//////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////Parent Class/////////////////////////////////////////////////////////
 /// Converting products OBJECT into a Product class   - Why ?  -> to get class features and use them for an object
-class Product{
+export class Product{
 
   constructor(productDetail){
     this.id = productDetail.id;
@@ -37,9 +37,13 @@ class Product{
   }
 };
 
-//////////////////////////////////////////////////////// Child Class  INHERITANCE /////////////////////////////////////////////////////
-// We are creating a child class for clothing,  using parent class of product --------------------------------------------------------
-class clothing extends Product{
+
+
+//////////////////////////////////////////////////////// Child Class  INHERITANCE ///////////////////////////////////////////////
+// We are creating a child class for clothing,  using parent class of product ---------------------------------------------------
+export class Clothing extends Product{
+  sizeChartLink;
+  
   constructor(productDetails){
 
     super(productDetails); //call parent constructor to get the parent properties
@@ -51,10 +55,82 @@ class clothing extends Product{
   // Method overRiding              => replace similar parent method
   extraInfoHTML(){
     //super.extraInfoHTML();        => to access parent method
-    return ` <a href="${this.sizeChartLink}" target="_blank"> Size chart </a>`
+    return `<a href="${this.sizeChartLink}" target="_blank"> Size chart </a>`
   }
 }
-//----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+export class Appliance extends Product {
+
+  instructionsLink;
+  warrantyLink;
+
+  constructor(productDetails){
+    super(productDetails); //call parent constructor to get the parent properties
+
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+
+  extraInfoHTML(){                //POLYMORPHISM  + METHOD OverRiding
+    return `<a href="${this.instructionsLink}" target="_blank"> Instructions </a>  
+            <a href="${this.warrantyLink}" target="_blank"> Warranty </a>
+           `
+  }
+}
+
+
+//-------------------------------------------------------------------------------------------------------------------------------
+
+/*
+///////// Test of some built in classes ///////////////////////////////////////////////////////////////////////////
+
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleDateString());
+console.log(date.toLocaleTimeString());
+console.log(date.toLocaleString());
+
+
+///////// Learned more about 'this' ////////////////////////////////////////////////////////////////////////////////
+console.log(this) //=> undefined = it does not point to anything but in the past it was pointing to window objects
+
+const object = {
+  a:2, 
+  b:this.a
+};
+
+//console.log(object.b) // => error
+
+function logThis(para1, param2){
+  console.log(this + para1 + param2); 
+};
+
+logThis(); //=> undefined
+
+logThis.call('hello'); //=> hello 
+logThis.call('hello', ' How', ' ?'); //=> hello 
+
+
+// Does not with an arrow function because arrow fuctions do not change the value of this
+const object2 = {
+  method: () => {
+    console.log(this)  // this will have the same value as outside the arrow function and it's undefeied
+    // this keeps the value that it has outside the arrow function
+  }
+};
+
+object2.method();  //=> undefined
+*/
+
+// why arrow function are designed this way ?
+// They were created tp be able to use this outside a function
+// ----------------------------------when its inside a method 'this' points to an object ----------------------------------------------------
+//   => if you a foreach loop with a normal function inside, this will point to undefined  => no longer access to the out object
+//   => but if you arrow function, this will point to what is outside the arrow function, like a method => arrow f do not change value of this
+//-------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -118,7 +194,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    warrantyLink:"images/appliance-instructions.png",
+    instructionsLink:"images/appliance-warranty.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -303,7 +382,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: "appliances",
+    warrantyLink:"images/appliance-instructions.png",
+    instructionsLink:"images/appliance-warranty.png"
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -608,7 +690,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    warrantyLink:"images/appliance-instructions.png",
+    instructionsLink:"images/appliance-warranty.png"
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -668,7 +753,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    warrantyLink:"images/appliance-instructions.png",
+    instructionsLink:"images/appliance-warranty.png"
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -719,9 +807,14 @@ export const products = [
   }
 ].map(productDetail=>{
   if(productDetail.type==='clothing'){
-    return new clothing (productDetail);
+    return new Clothing (productDetail);
   } 
+  else if (productDetail.type === 'appliances'){
+    return new Appliance(productDetail);
+  }
   else{
     return new Product (productDetail);
   }
 });
+
+console.log(products);
