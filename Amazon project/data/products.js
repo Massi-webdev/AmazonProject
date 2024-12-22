@@ -14,7 +14,7 @@ export function getProduct(productId) {
 
 ///////////////////////////////////////////////////////////Parent Class/////////////////////////////////////////////////////////
 /// Converting products OBJECT into a Product class   - Why ?  -> to get class features and use them for an object
-class Product{
+export class Product{
 
   constructor(productDetail){
     this.id = productDetail.id;
@@ -41,7 +41,7 @@ class Product{
 
 //////////////////////////////////////////////////////// Child Class  INHERITANCE ///////////////////////////////////////////////
 // We are creating a child class for clothing,  using parent class of product ---------------------------------------------------
-class Clothing extends Product{
+export class Clothing extends Product{
   sizeChartLink;
   
   constructor(productDetails){
@@ -62,7 +62,7 @@ class Clothing extends Product{
 
 
 
-class Appliance extends Product {
+export class Appliance extends Product {
 
   instructionsLink;
   warrantyLink;
