@@ -25,8 +25,9 @@ export function updateCartQuntity(){
 
 
 ///////////////////////////////////// AddtoCart /////////////////////////////////////////////////////////
-export function AddToCart(productId, index){
+export function AddToCart(productId, selectedQuantity){
   let matchingItem;
+
   cart.forEach(cartItem => {
     // if car item = product we want to add => matching = item
     if (productId=== cartItem.productId){
@@ -39,7 +40,13 @@ export function AddToCart(productId, index){
   
   // if item already in the cart then just add +1
   if (matchingItem){
-    matchingItem.quantity += 1;
+    if (selectedQuantity){
+      matchingItem.quantity += selectedQuantity;
+    }
+    else {
+      matchingItem.quantity += 1;
+    }
+    
   } 
   // else add it as new 
   else {
