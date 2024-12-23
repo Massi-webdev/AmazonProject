@@ -1,7 +1,7 @@
 import { renderOrderSummary } from "../../../../script/checkout/orderSummary.js";
 import { AddToCart, cart, loadFromStorage } from "../../../../data/cart.js";
 import { updateCheckoutHeader } from "../../../../script/checkout/checkoutHeader.js";
-import { products, loadProduct } from "../../../../data/products.js";
+import { products, loadProduct, loadProductFetch } from "../../../../data/products.js";
 
 
 describe('test suite: Render Order Summary',()=>{
@@ -17,7 +17,7 @@ describe('test suite: Render Order Summary',()=>{
   //beforeEall()  -> runs code before all test
 
   beforeAll((done)=> {
-    loadProduct(()=>{
+    loadProductFetch().then(() =>{
       done(); //this function waits for the code to be executer and finish
     });
     

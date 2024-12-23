@@ -1,5 +1,19 @@
 import formatCurrency from "../script/utils/money.js";
 
+
+export function getProduct(productId) {
+  //----------------------Comparaison
+  let matchingProduct; 
+  
+  products.forEach((product)=>{ 
+    if(product.id === productId){
+      matchingProduct = product;
+    }
+  });
+  return matchingProduct;
+}
+
+
 ///////////////////////////////////////////////////////////Parent Class/////////////////////////////////////////////////////////
 /// Converting products OBJECT into a Product class   - Why ?  -> to get class features and use them for an object
 export class Product{
@@ -807,8 +821,7 @@ export const products = [
 
 
 
-
-
+//////////////////////////////////// Make request using XMLHttpRequest () + callback /////////////////////////////////////     
 export let products = [];
 
 //Creating a function to be able to use backend data in other files and load data
@@ -841,22 +854,35 @@ export function loadProduct(fun){
   xhr.open('GET', 'https://supersimplebackend.dev/products'); 
   xhr.send();
 }
-
 loadProduct();
 
 
+/////////////////////////////// FETCH() + PROMISE = Better way to make HTTP requests /////////////////////////////////////
+export function loadProductFetch(){   //built-in function => makes http request
+  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
+      console.log('fetched')
+      console.log(response);
 
+      return response.json()
+  }).then((products)=>{
 
-
-
-export function getProduct(productId) {
-  //----------------------Comparaison
-  let matchingProduct; 
-  
-  products.forEach((product)=>{ 
-    if(product.id === productId){
-      matchingProduct = product;
-    }
+    products = products.map(productDetail=>{
+      if(productDetail.type==='clothing'){
+        return new Clothing (productDetail);
+      } 
+      else if (productDetail.type === 'appliances'){
+        return new Appliance(productDetail);
+      }
+      else{
+        return new Product (productDetail);
+      }
+    });
+    console.log(products);
   });
-  return matchingProduct;
+  return promise
 }
+/*
+loadProductFetch().then(()=>{
+  console.log(('Next step or next promise'))
+});
+*/
