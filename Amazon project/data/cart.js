@@ -95,3 +95,23 @@ export function updateDeliveryOption(productId, deliveryOptionId){
   matchingItem.deliveryOptionId = deliveryOptionId;
   saveCartItem();
 }
+
+
+
+
+export function loadCart(fun){
+
+  // using request built in class
+  const xhr = new XMLHttpRequest();
+
+  //Need time to get an answer from the backend
+  xhr.addEventListener('load',()=>{
+    console.log(xhr.response);
+    
+    fun();  // This a callback  => function to run in the future => like renderProductGrid
+  })  
+
+  //Sending request
+  xhr.open('GET', 'https://supersimplebackend.dev/cart'); 
+  xhr.send();
+}

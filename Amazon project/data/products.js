@@ -25,7 +25,6 @@ export class Product{
   }
 };
 
-console.log('exported')
 
 //////////////////////////////////////////////////////// Child Class  INHERITANCE ///////////////////////////////////////////////
 // We are creating a child class for clothing,  using parent class of product ---------------------------------------------------
@@ -834,7 +833,7 @@ export function loadProduct(fun){
         return new Product (productDetail);
       }
     });
-    console.log('Loaded');
+    
     fun();  // This a callback  => function to run in the future => like renderProductGrid
   })  
 

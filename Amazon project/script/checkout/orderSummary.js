@@ -12,8 +12,6 @@ import { updateCheckoutHeader } from "./checkoutHeader.js";
 // This mode makes sure that the page always matches data
 // MVC => design pattern like famous frameworks
 
-console.log(cart);
-
 /////////////////////////////////////////////// Create cart Items HTML ///////////////////////////////////////////////
 export function renderOrderSummary(){
   
