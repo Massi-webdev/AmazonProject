@@ -853,8 +853,7 @@ export function loadProduct(fun){
   //Sending request
   xhr.open('GET', 'https://supersimplebackend.dev/products'); 
   xhr.send();
-}
-loadProduct();
+};
 
 
 /////////////////////////////// FETCH() + PROMISE = Better way to make HTTP requests /////////////////////////////////////
