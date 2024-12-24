@@ -5,12 +5,35 @@ import { loadProduct, products } from "../data/products.js";
 
 updateCheckoutHeader();
 
+
+//******************************************* PROMISES ***********************************************
+new Promise((resolve)=>{
+  loadProduct(()=>{
+    resolve();
+  })
+}).then(()=>{
+  return new Promise((resolve)=>{
+    let test = () => {
+      console.log('another promise')
+    };
+    resolve();
+  });
+}).then(()=>{
+  renderOrderSummary();
+  renderPaymentSummary();
+});
+//----------------------------------------------------------------------------------------------------
+
+
+/*
+//////////////// USE IMPORTED GET REQUEST PRODUCTS //////////////////////////////////////
 //loadProduct(renderOrderSummary);
 //loadProduct(renderPaymentSummary);
 
-// or we can use callbacks
 
+/////////////////// XMLHttpRequest + callbacks /////////////////////////////////////////
 loadProduct(()=>{
   renderOrderSummary();
   renderPaymentSummary();
 })
+*/
