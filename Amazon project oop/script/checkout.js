@@ -9,18 +9,22 @@ updateCheckoutHeader();
 //******************************************* PROMISES ***********************************************
 new Promise((resolve)=>{
   loadProduct(()=>{
-    resolve();
-  })
-}).then(()=>{
+    resolve('value 1');
+  });
+
+}).then((value1)=>{
   return new Promise((resolve)=>{
     let test = () => {
       console.log('another promise')
     };
-    resolve();
+    console.log(value1)
+    resolve('value 2');
   });
-}).then(()=>{
+
+}).then((value2)=>{
   renderOrderSummary();
   renderPaymentSummary();
+  console.log(value2)
 });
 //----------------------------------------------------------------------------------------------------
 
