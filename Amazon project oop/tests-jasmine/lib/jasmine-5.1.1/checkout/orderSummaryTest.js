@@ -1,7 +1,7 @@
 import { renderOrderSummary } from "../../../../script/checkout/orderSummary.js";
 import { AddToCart, cart, loadFromStorage } from "../../../../data/cart.js";
 import { updateCheckoutHeader } from "../../../../script/checkout/checkoutHeader.js";
-import { loadProduct } from "../../../../data/products.js";
+import { loadProduct, loadProductFetch} from "../../../../data/products.js";
 
 describe('test suite: Render Order Summary',()=>{
   
@@ -13,9 +13,15 @@ describe('test suite: Render Order Summary',()=>{
   };
 
   beforeAll((done) =>{
-    loadProduct(()=>{
+    ///.1.  load product using callback
+    /*loadProduct(()=>{
       done(); // allow to control when to go to the next step
       //we can use done beforeEach and it
+    });*/
+
+    //.2.  load product using fetch() + promise
+    loadProductFetch().then(()=>{
+      done();
     });
   });
 
