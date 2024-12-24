@@ -1,4 +1,6 @@
 import formatCurrency from "../script/utils/money.js";
+import { renderOrderSummary } from "../script/checkout/orderSummary.js";
+import { renderPaymentSummary } from "../script/checkout/paymentSummary.js";
 
 export function getProduct(productId) {
   //----------------------Comparaison
@@ -110,6 +112,27 @@ export function loadProduct(fun){
 
 
 
+//**************************************************** FETCH and PROMISE ************************************************
+//FETCH => Better way to do a HttpRequest    +   it has a promise feature in it.
+export function loadProductFetch(fun){
 
-// ******************************************** PROMISES ****************************************************************
-//Better way to handle asychronous codes
+  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{ //when we call fetch, it creates a promise
+    return response.json();
+  }).then((productsData)=>{
+
+    products = productsData.map(productDetail=>{
+      if(productDetail.type==='clothing'){
+        return new Clothing (productDetail);
+      } 
+      else if (productDetail.type === 'appliances'){
+        return new Appliance(productDetail);
+      }
+      else{
+        return new Product (productDetail);
+      }
+    });
+
+    //fun(); //instead of using a call back like before, we will use another promise and then
+  })
+  return promise;
+};
