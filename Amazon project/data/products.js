@@ -863,9 +863,9 @@ export function loadProductFetch(){   //built-in function => makes http request
       console.log(response);
 
       return response.json()
-  }).then((products)=>{
+  }).then((productsdetails)=>{
 
-    products = products.map(productDetail=>{
+    products = productsdetails.map(productDetail=>{
       if(productDetail.type==='clothing'){
         return new Clothing (productDetail);
       } 

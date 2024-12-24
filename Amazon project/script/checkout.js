@@ -6,14 +6,14 @@ import { loadCart } from "../data/cart.js";
 
 updateCheckoutHeader();
 
-/////////////////////////////////////////// simple solution ///////////////////////////////////////////////
+//********************************************* simple solution *********************************************
 // We can execute the same function multples time using different function as a parameter
 //loadProduct(renderOrderSummary);
 //loadProduct(renderPaymentSummary);
 
 
 
-////////////////////////////////////////// CALL BACK Solution /////////////////////////////////////////////
+// ********************************************* CALL BACK Solution *********************************************
 //we can also run ANNONYMOUS function using arrow function, instead of parameters to run multiple functions
 /*
 loadProduct(() => { 
@@ -24,7 +24,7 @@ loadProduct(() => {
 
 
 
-//////////////////////////////////////// PROMISES ///////////////////////////////////////////////////////
+//********************************************* PROMISES *********************************************
 // it a built in class used to --------------------------------------------------------------------------
 //   - Better way handle asynchronous code
 //   - similar to done() function in jasmine.
@@ -59,19 +59,20 @@ new Promise((resolve)=> {       //resolve - similiar to done()   -lets us contro
 // When we don't use promiseAll, we load our codes promise by promise (step by step)
 
 
-*/ //----------------------------------------PROMISE.ALL----------------------------------------
+*/ //********************************************* PROMISE.ALL *********************************************
 // PROMISE.ALL is an array of promises that we will for the promises to finish before goign to the next step
+/* 
 Promise.all([
 
-  /* //------------------------- This promise was done using XMLHttpRequest
+  //------------------------- This promise was done using XMLHttpRequest
   new Promise((resolve)=> {      
     loadProduct(() => {
       resolve('value1');  
     });
   })
   */
-
-  // This promise was done using fetch() + promise
+/*
+  // This promise was done using fetch() + promise --
   loadProductFetch()
   ,
   new Promise((resolve)=>{
@@ -85,14 +86,12 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 })
-
+*/
   
 
-
-
-
 /*
-////////////////////// Why Do we use promises if it's additional work compared to Callbacks ??????????????
+// Why Do we use promises if it's additional work compared to Callbacks ??
+
 //--Because a lot of callback cause multiples nesting  (codes inside codess)
 // Like this
 loadProduct(() => { 
@@ -103,3 +102,45 @@ loadProduct(() => {
 });
 // PROMISES help us flatten our code
 */
+
+
+
+
+/*//********************************************* ASYNC AWAIT *********************************************
+// Example:
+async function loadPage(){       //async nake a function like a promise
+  console.log('Page loaded');
+  return 'Passing value'         //-----passing value
+};
+
+loadPage().then((value)=>{       //call function and add then for next code to run
+  console.log('next page');
+  console.log(value);            //-----value was passed
+});
+*/
+
+
+// Why use Async then? --> because there an Await feature --> let us wait for the promise to
+//                                                            finish before the next line
+// Example:
+async function loadPage2(){      //async nake a function like a promise
+ 
+  await loadProductFetch()       // await let us run asynchronous code like normal code
+                                 // No need to write a lot of code (then...)
+                                 // It will execute this promise and move to the next line                
+  await new Promise((resolve)=>{
+    loadCart(()=>{
+      resolve('value2');
+    });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();      
+
+  return 'Passing value'         //-----passing value
+};
+
+loadPage2().then((value)=>{      //call function and add then for next code to run
+  console.log(value);            //-----value was passed
+});
+
