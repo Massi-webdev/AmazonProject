@@ -134,6 +134,14 @@ async function loadPage2(){      //async nake a function like a promise
     });
   });
 
+  const anotherPassedValue = await new Promise((resolve)=>{      // We can pass a value without using then
+    resolve('another passed value');                             // decalre a variable + use resolve to pass it to the var
+    
+  });
+  console.log(anotherPassedValue);
+
+
+
   renderOrderSummary();
   renderPaymentSummary();      
 
@@ -143,4 +151,3 @@ async function loadPage2(){      //async nake a function like a promise
 loadPage2().then((value)=>{      //call function and add then for next code to run
   console.log(value);            //-----value was passed
 });
-
