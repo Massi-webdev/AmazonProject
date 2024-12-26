@@ -46,9 +46,7 @@ export class Clothing extends Product{
   sizeChartLink;
   
   constructor(productDetails){
-
     super(productDetails); //call parent constructor to get the parent properties
-
     this.sizeChartLink = productDetails.sizeChartLink;
   }
 
@@ -131,7 +129,91 @@ object2.method();  //=> undefined
 // ----------------------------------when its inside a method 'this' points to an object ----------------------------------------------------
 //   => if you a foreach loop with a normal function inside, this will point to undefined  => no longer access to the out object
 //   => but if you arrow function, this will point to what is outside the arrow function, like a method => arrow f do not change value of this
-//-------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------
+
+
+
+//////////////////////////////////// Make request using XMLHttpRequest () + callback /////////////////////////////////////     
+export let products = [];
+
+//Creating a function to be able to use backend data in other files and load data
+export function loadProduct(fun){
+
+  // using request built in class
+  const xhr = new XMLHttpRequest();
+
+  //Need time to get an answer from the backend
+  xhr.addEventListener('load',()=>{
+    products = xhr.response;
+    products = JSON.parse(products);
+    
+    products = products.map(productDetail=>{
+      if(productDetail.type==='clothing'){
+        return new Clothing (productDetail);
+      } 
+      else if (productDetail.type === 'appliances'){
+        return new Appliance(productDetail);
+      }
+      else{
+        return new Product (productDetail);
+      }
+    });
+    
+    fun();  // This a callback  => function to run in the future => like renderProductGrid
+  })  
+
+
+  // Error event listener
+  xhr.addEventListener('error', ()=>{
+    console.log('Unexpected error. Please try again later');
+  })
+
+
+  //Sending request
+  xhr.open('GET', 'https://supersimplebackend.dev/products'); 
+  xhr.send();
+};
+
+
+
+
+
+
+/////////////////////////////// FETCH() + PROMISE = Better way to make HTTP requests /////////////////////////////////////
+export function loadProductFetch(){   //built-in function => makes http request
+  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
+
+      return response.json()
+  }).then((productsdetails)=>{
+
+    products = productsdetails.map(productDetail=>{
+      if(productDetail.type==='clothing'){
+        return new Clothing (productDetail);
+      } 
+      else if (productDetail.type === 'appliances'){
+        return new Appliance(productDetail);
+      }
+      else{
+        return new Product (productDetail);
+      }
+    });
+
+  }).catch((error)=>{                      //---Catch errors when using fetch();
+    console.log('Unexpected error. Please try again later'); 
+    console.log(error);
+  })
+  return promise
+}
+
+/*
+loadProductFetch().then(()=>{
+  console.log(('Next step or next promise'))
+});
+*/
+
+
+
+
 
 
 /*
@@ -816,72 +898,5 @@ export const products = [
   else{
     return new Product (productDetail);
   }
-});
-*/
-
-
-
-//////////////////////////////////// Make request using XMLHttpRequest () + callback /////////////////////////////////////     
-export let products = [];
-
-//Creating a function to be able to use backend data in other files and load data
-export function loadProduct(fun){
-
-  // using request built in class
-  const xhr = new XMLHttpRequest();
-
-  //Need time to get an answer from the backend
-  xhr.addEventListener('load',()=>{
-    products = xhr.response;
-    products = JSON.parse(products);
-    
-    products = products.map(productDetail=>{
-      if(productDetail.type==='clothing'){
-        return new Clothing (productDetail);
-      } 
-      else if (productDetail.type === 'appliances'){
-        return new Appliance(productDetail);
-      }
-      else{
-        return new Product (productDetail);
-      }
-    });
-    
-    fun();  // This a callback  => function to run in the future => like renderProductGrid
-  })  
-
-  //Sending request
-  xhr.open('GET', 'https://supersimplebackend.dev/products'); 
-  xhr.send();
-};
-
-
-/////////////////////////////// FETCH() + PROMISE = Better way to make HTTP requests /////////////////////////////////////
-export function loadProductFetch(){   //built-in function => makes http request
-  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
-      console.log('fetched')
-      console.log(response);
-
-      return response.json()
-  }).then((productsdetails)=>{
-
-    products = productsdetails.map(productDetail=>{
-      if(productDetail.type==='clothing'){
-        return new Clothing (productDetail);
-      } 
-      else if (productDetail.type === 'appliances'){
-        return new Appliance(productDetail);
-      }
-      else{
-        return new Product (productDetail);
-      }
-    });
-    console.log(products);
-  });
-  return promise
-}
-/*
-loadProductFetch().then(()=>{
-  console.log(('Next step or next promise'))
 });
 */

@@ -124,23 +124,33 @@ loadPage().then((value)=>{       //call function and add then for next code to r
 //                                                            finish before the next line
 // Example:
 async function loadPage2(){      //async nake a function like a promise
- 
-  await loadProductFetch()       // await let us run asynchronous code like normal code
-                                 // No need to write a lot of code (then...)
-                                 // It will execute this promise and move to the next line                
-  await new Promise((resolve)=>{
-    loadCart(()=>{
-      resolve('value2');
-    });
-  });
 
-  const anotherPassedValue = await new Promise((resolve)=>{      // We can pass a value without using then
-    resolve('another passed value');                             // decalre a variable + use resolve to pass it to the var
+
+  try {
     
-  });
-  console.log(anotherPassedValue);
+    //throw 'error1';             // we can push an manual error, to skip the following code And catch the error later
 
+    await loadProductFetch()      // await let us run asynchronous code like normal code
+                                  // No need to write a lot of code (then...)
+                                  // It will execute this promise and move to the next line      
+    await new Promise((resolve, reject)=>{
+      //throw 'error2';           //if we await it's gonna go to the last catch
+      loadCart(()=>{
+        //we can't use throw right here because throw is not a function  --> but reject() can
+        //reject('error3');
+        resolve('value2');
+        });
+    });
 
+    const anotherPassedValue = await new Promise((resolve)=>{      // We can pass a value without using then
+    resolve('another passed value');                               // decalre a variable + use resolve to pass it to the var
+
+    });
+    console.log(anotherPassedValue);
+
+  } catch(error) {
+    console.log('Unexpected error, please try again later!')
+  }
 
   renderOrderSummary();
   renderPaymentSummary();      
