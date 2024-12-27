@@ -2,7 +2,7 @@ import {renderOrderSummary} from "./checkout/orderSummary.js"
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { updateCheckoutHeader } from "./checkout/checkoutHeader.js";
 import {loadProductFetch, loadProduct} from "../data/products.js"
-import { loadCart } from "../data/cart.js";
+import { cart, loadCart } from "../data/cart.js";
 
 updateCheckoutHeader();
 
@@ -160,4 +160,5 @@ async function loadPage2(){      //async nake a function like a promise
 
 loadPage2().then((value)=>{      //call function and add then for next code to run
   console.log(value);            //-----value was passed
+  console.log(cart)
 });
