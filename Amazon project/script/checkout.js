@@ -1,8 +1,9 @@
 import {renderOrderSummary} from "./checkout/orderSummary.js"
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { updateCheckoutHeader } from "./checkout/checkoutHeader.js";
-import {loadProductFetch, loadProduct} from "../data/products.js"
+import {loadProductFetch} from "../data/products.js"
 import { cart, loadCart, loadCartFetch } from "../data/cart.js";
+
 
 updateCheckoutHeader();
 

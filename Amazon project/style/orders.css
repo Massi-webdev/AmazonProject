@@ -57,6 +57,32 @@
   flex-shrink: 1;
 }
 
+.buy-again-button{
+  color: rgb(33, 33, 33);
+  background-color: rgb(255, 216, 20);
+  border: 1px solid rgb(252, 210, 0);
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+.buy-again-button:hover{
+  background-color: rgb(227, 192, 19);
+}
+
+.button-secondary{
+  color: rgb(33, 33, 33);
+  background: white;
+  border: 1px solid #D5D9D9;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.button-secondary:hover{
+  background: rgb(226, 226, 226);
+}
+
+
 @media (max-width: 575px) {
   .order-header {
     flex-direction: column;
@@ -205,7 +231,7 @@
     width: 100%;
     margin-bottom: 15px;
   }
-
+  
   .product-actions {
     /* grid-column: auto; undos grid-column: 2; from above.
        This element will now be placed in its normal column

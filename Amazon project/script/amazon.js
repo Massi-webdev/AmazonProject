@@ -1,12 +1,14 @@
 ///////////////////// generate products HTML ///////////////////////////////////////////
 import { cart, updateCartQuntity, AddToCart, saveCartItem } from "../data/cart.js";
-import { products, loadProduct } from "../data/products.js";
+import { products, loadProductFetch } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
 
 // Render Cart Items at the beginning ///////
 document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();   //generate cart items HTML
 
-loadProduct(renderProductsGrid);
+loadProductFetch().then(()=>{
+renderProductsGrid();
+})
 
 function renderProductsGrid(){
 

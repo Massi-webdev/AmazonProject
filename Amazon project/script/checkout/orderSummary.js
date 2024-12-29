@@ -1,4 +1,4 @@
-import { products, loadProduct, getProduct } from "../../data/products.js";
+import { products, getProduct } from "../../data/products.js";
 import { cart, saveCartItem, removeFromCart, updateCartQuntity, updateDeliveryOption, loadFromStorage } from "../../data/cart.js";
 import formatCurrency from "../utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js"
@@ -199,6 +199,7 @@ export function renderOrderSummary(){
         ;
       })
     })
+    updateCheckoutHeader()
   };
 
   //---------------------------------------------------------------------------------------------------------------------------
