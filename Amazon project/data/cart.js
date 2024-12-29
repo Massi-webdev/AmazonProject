@@ -96,7 +96,6 @@ export function updateDeliveryOption(productId, deliveryOptionId){
 
 
 export function loadCart(fun){
-
   // using request built in class
   const xhr = new XMLHttpRequest();
 
@@ -110,4 +109,15 @@ export function loadCart(fun){
   //Sending request
   xhr.open('GET', 'https://supersimplebackend.dev/cart'); 
   xhr.send();
+}
+
+
+
+/////////////////////////////-------------- Exercice 18h ----------------///////////////////////////
+export async function loadCartFetch(){
+  await fetch('https://supersimplebackend.dev/cart').then((response)=>{
+    return response.text()
+  }).then((response)=>{
+    console.log(response)
+  })
 }

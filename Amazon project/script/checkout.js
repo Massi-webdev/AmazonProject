@@ -2,7 +2,7 @@ import {renderOrderSummary} from "./checkout/orderSummary.js"
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { updateCheckoutHeader } from "./checkout/checkoutHeader.js";
 import {loadProductFetch, loadProduct} from "../data/products.js"
-import { cart, loadCart } from "../data/cart.js";
+import { cart, loadCart, loadCartFetch } from "../data/cart.js";
 
 updateCheckoutHeader();
 
@@ -123,6 +123,7 @@ loadPage().then((value)=>{       //call function and add then for next code to r
 // Why use Async then? --> because there an Await feature --> let us wait for the promise to
 //                                                            finish before the next line
 // Example:
+/*
 async function loadPage2(){      //async nake a function like a promise
 
 
@@ -135,7 +136,7 @@ async function loadPage2(){      //async nake a function like a promise
                                   // It will execute this promise and move to the next line      
     await new Promise((resolve, reject)=>{
       //throw 'error2';           //if we await it's gonna go to the last catch
-      loadCart(()=>{
+      loadCartFetch(()=>{
         //we can't use throw right here because throw is not a function  --> but reject() can
         //reject('error3');
         resolve('value2');
@@ -162,3 +163,29 @@ loadPage2().then((value)=>{      //call function and add then for next code to r
   console.log(value);            //-----value was passed
   console.log(cart)
 });
+*/
+
+
+///////////////////////////////////////////// Exercices 18i /////////////////////////////////////////////////////////
+async function loadPage3(){
+  try{
+    await Promise.all([
+      loadProductFetch()
+      ,
+      new Promise((resolve, reject)=>{
+        loadProductFetch();
+        resolve('Success')
+      })
+    ]).then((message)=>{
+      console.log(message)
+    })
+  }
+  catch(error){
+    console.log('Unexpected error, please try another time')
+  }
+
+  renderOrderSummary();
+  renderPaymentSummary();    
+}
+
+loadPage3();

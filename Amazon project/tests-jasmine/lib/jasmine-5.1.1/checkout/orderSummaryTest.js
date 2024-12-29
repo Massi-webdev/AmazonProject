@@ -16,9 +16,9 @@ describe('test suite: Render Order Summary',()=>{
   //beforeall()  -> runs code before all test
   //beforeEall()  -> runs code before all test
 
-  beforeAll((done)=> {
-    loadProductFetch().then(() =>{
-      done(); //this function waits for the code to be executer and finish
+  beforeAll(async()=> {
+    await loadProductFetch().then(() =>{
+      //done(); //this function waits for the code to be executer and finish
     });
     
   })

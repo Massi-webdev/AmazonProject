@@ -89,8 +89,6 @@ class Cart {
   }
 };
 
-
-
 // Syntax look like functions   +  new to create a new object
 const cart = new Cart('cart-oop');              // Each object we generate from a class, we call it instance of a classe.
 const businessCart = new Cart('cart-business'); // Each object we generate from a class, we call it instance of a classe.
