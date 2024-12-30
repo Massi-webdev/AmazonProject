@@ -5,10 +5,12 @@ body{
 }
 
 main{
-  margin: 200px;
+  
   display: flex;
   flex-direction: column;
-} 
+  justify-content: center;
+  align-items: center;
+}
 
 
 
@@ -47,8 +49,11 @@ main{
     font-size: 20px;
     margin-bottom: 15px;
   }
+  
   .checkout-grid{
-    display: flex;
+    width: 1200px;
+    display: grid;
+    grid-template-columns: 700px 250px;
     gap: 20px;
   }
 

@@ -88,12 +88,13 @@ function trackOrder(){
     
     
     const deliveryProgress = ((DiffCurrentOrder/DiffDeliveryOrder)*100).toFixed(2);
+
+        
+    document.addEventListener('mousemove',()=>{
+      document.querySelector('.progress-bar').style.width=`${deliveryProgress}%`
+  })
+  
     //----------------Highlight progress label -------------------------------
-    
-    document.addEventListener('mouseenter',()=>{
-        document.querySelector('.progress-bar').style.width=`${deliveryProgress}%`
-    })
-    
     function removeCurrentStatus(){
     document.querySelectorAll('.progress-label').forEach(label=>{
       label.classList.remove('current-status');
