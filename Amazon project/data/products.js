@@ -135,7 +135,7 @@ object2.method();  //=> undefined
 
 //////////////////////////////////// Make request using XMLHttpRequest () + callback /////////////////////////////////////     
 export let products = [];
-/*
+
 //Creating a function to be able to use backend data in other files and load data
 export function loadProduct(fun){
 
@@ -173,7 +173,7 @@ export function loadProduct(fun){
   xhr.open('GET', 'https://supersimplebackend.dev/products'); 
   xhr.send();
 };
-*/
+
 
 
 
