@@ -172,6 +172,5 @@ export function getOrder(orderId){
       matchingOrder=order;
     }
   })
-  console.log(matchingOrder)
   return matchingOrder;
 }
