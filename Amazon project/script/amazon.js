@@ -8,6 +8,7 @@ document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();  
 
 loadProductFetch().then(()=>{
 renderProductsGrid(products);
+console.log(products)
 })
 
 
@@ -117,47 +118,81 @@ function renderProductsGrid(products){
 
 
 //////////////////////////////////// Make search bar interactive /////////////////////////////////////////////////
-//create new url with parameters 
+//------create new url with parameters 
+
 document.querySelector('.js-search-icon-button').addEventListener('click',()=>{
   const searchInput = document.querySelector('.js-search-input').value
     window.location.href = `amazon.html?search=${searchInput}`
 })
 
+/*
+//------add Enter + Escape keydown event listeners to search bar 
+const searchElement = document.querySelector('.js-search-input');
 
-// add Enter + Escape keydown event listeners to search bar 
-const searchInput = document.querySelector('.js-search-input')
-searchInput.addEventListener('keydown',(event)=>{
+searchElement.addEventListener('keydown',(event)=>{
+  const searchInput = document.querySelector('.js-search-input').value;
   if (event.key==='Enter'){
     window.location.href = `amazon.html?search=${searchInput}`
   } else if (event.key==='Escape'){
     document.querySelector('.js-search-input').value='';
   }
 });
+*/
 
 
-
-// use parameters to render only searched items
+// -----use parameters to render only searched items
 loadProductFetch().then(()=>{
   search()
 })
 
 
-// function that takes searched value and render similar products
+// -----function that takes searched value and render similar products
 function search(){
   
   const url = new URL(window.location.href);
-  
-  let searchedValue = url.searchParams.get('search')===null ? '' : (url.searchParams.get('search')).trim().toLocaleLowerCase()
-  console.log(searchedValue);
+  let searchedValue = url.searchParams.get('search')
+  console.log(searchedValue)
+  if (searchedValue===null){
+    return ''
+  }
 
   const filteredProducts = products.filter(product=>{
     const productName = (product.name).trim().toLowerCase();
     return productName.includes(searchedValue);
   })
 
+  /*products.forEach(product=>{
+    let keywords = product.keywords
+    keywords.forEach(word=>{
+      if (word.includes(search)){
+        console.log(true)
+      }
+    })
+  })*/
+
   if (filteredProducts){
     renderProductsGrid(filteredProducts);
   }
-  
+
+ if (document.querySelector('.all-products-container').innerHTML===''){
+    const noProductHTML =  `<div style='            
+                              width: 100%;
+                              display: flex; 
+                              justify-content: center; 
+                              align-items: center; 
+                              height: 20vh;
+                              font-size:25px;
+                              font-weight:800'> 
+                              
+                              Searched product was not found, please try another keyword. </p>
+                           </div>`
+    document.querySelector('main').innerHTML = noProductHTML
+  }
+
+  /*if(filteredProducts[0]===undefined && searchedValue!==null){
+    renderProductsGrid(filteredProducts);
+    
+  }*/
 }
+
 

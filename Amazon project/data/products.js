@@ -24,6 +24,7 @@ export class Product{
     this.name = productDetail.name;
     this.rating = productDetail.rating;
     this.priceCents =productDetail.priceCents;
+    this.keywords = productDetail.keywords;
   }
 
   getStarsUrl(){
