@@ -10,6 +10,7 @@ loadProductFetch().then(()=>{
 renderProductsGrid(products);
 })
 
+
 function renderProductsGrid(products){
 
   let productsHTML = "";
@@ -66,10 +67,7 @@ function renderProductsGrid(products){
 
 
 
-
-
-
-  //////////////// Make ADD to CART interactive ////////////////////////////////////////////////////////////////
+//////////////// Make ADD to CART interactive ////////////////////////////////////////////////////////////////
 
   document.querySelectorAll(".js-add-to-cart-button").
     forEach((AddToCartButton, index) => {
@@ -144,13 +142,14 @@ loadProductFetch().then(()=>{
 })
 
 
+// function that takes searched value and render similar products
 function search(){
   
   const url = new URL(window.location.href);
   
   let searchedValue = url.searchParams.get('search')===null ? '' : (url.searchParams.get('search')).trim().toLocaleLowerCase()
   console.log(searchedValue);
-  
+
   const filteredProducts = products.filter(product=>{
     const productName = (product.name).trim().toLowerCase();
     return productName.includes(searchedValue);
