@@ -152,23 +152,29 @@ function search(){
   const url = new URL(window.location.href);
   let searchedValue = url.searchParams.get('search')
   console.log(searchedValue)
+  
   if (searchedValue===null){
     return ''
   }
 
+  searchedValue = searchedValue.trim().toLowerCase();
+
   const filteredProducts = products.filter(product=>{
+    const productKeywords = product.keywords;
     const productName = (product.name).trim().toLowerCase();
-    return productName.includes(searchedValue);
+    
+    
+    if (productKeywords.includes(searchedValue)){
+      return product;
+    } 
+    
+    else if (productName.includes(searchedValue)){
+      return productName.includes(searchedValue);
+    }
+
   })
 
-  /*products.forEach(product=>{
-    let keywords = product.keywords
-    keywords.forEach(word=>{
-      if (word.includes(search)){
-        console.log(true)
-      }
-    })
-  })*/
+
 
   if (filteredProducts){
     renderProductsGrid(filteredProducts);
@@ -189,10 +195,7 @@ function search(){
     document.querySelector('main').innerHTML = noProductHTML
   }
 
-  /*if(filteredProducts[0]===undefined && searchedValue!==null){
-    renderProductsGrid(filteredProducts);
-    
-  }*/
+
 }
 
 
