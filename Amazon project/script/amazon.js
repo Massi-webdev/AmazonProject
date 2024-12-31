@@ -7,10 +7,10 @@ import formatCurrency from "./utils/money.js";
 document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();   //generate cart items HTML
 
 loadProductFetch().then(()=>{
-renderProductsGrid();
+renderProductsGrid(products);
 })
 
-function renderProductsGrid(){
+function renderProductsGrid(products){
 
   let productsHTML = "";
 
@@ -84,19 +84,21 @@ function renderProductsGrid(){
         document.querySelector(".js-cart-items-number").innerHTML=updateCartQuntity();
 
         AddedTimeOuts(index);
+        const url = new URL(window.location.href);
+        console.log(url.searchParams.get('search'))
     });
   })
 
 
   const timeOuts = [] // -------------------------    list of objects of differents timeout regenrated
   ///////////////////////////////////////////// ADDED Timeouts //////////////////////////////////////////////////
-        // ------------------------------------------------------------------- if indexedtimeout exist => clear
+        // ------------------------------------------------------------ if indexedtimeout exist => clear
         function AddedTimeOuts(index){
           if (timeOuts[index]){
             clearTimeout(timeOuts[index].on);
             clearTimeout(timeOuts[index].off);
           }
-        //  ------------------------------------------------------------------- 'added' to cart Message timeouts
+        //  ----------------------------------------------------------- 'added' to cart Message timeouts
           const addedToCartONTimeOut = setTimeout(() => {
             document.querySelector(`.js-added-to-cart-off-${index}`).classList.add(`js-added-to-cart-on`);
           }, 0);
@@ -106,7 +108,7 @@ function renderProductsGrid(){
           }, 2000);
           
     
-          //  -----------------------------------------------------------------  list of objects of differents timeout regenrated
+          //  --------------------------------------------------------- list of objects of differents timeout regenrated
           timeOuts[index] = {                              
             on: addedToCartONTimeOut,
             off: addedToCartOFFTimeOut
@@ -114,4 +116,49 @@ function renderProductsGrid(){
         }
 }
 
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////// Make search bar interactive /////////////////////////////////////////////////
+//create new url with parameters 
+document.querySelector('.js-search-icon-button').addEventListener('click',()=>{
+  const searchInput = document.querySelector('.js-search-input').value
+    window.location.href = `amazon.html?search=${searchInput}`
+})
+
+
+// add Enter + Escape keydown event listeners to search bar 
+const searchInput = document.querySelector('.js-search-input')
+searchInput.addEventListener('keydown',(event)=>{
+  if (event.key==='Enter'){
+    window.location.href = `amazon.html?search=${searchInput}`
+  } else if (event.key==='Escape'){
+    document.querySelector('.js-search-input').value='';
+  }
+});
+
+
+
+// use parameters to render only searched items
+loadProductFetch().then(()=>{
+  search()
+})
+
+
+function search(){
+  
+  const url = new URL(window.location.href);
+  
+  let searchedValue = url.searchParams.get('search')===null ? '' : (url.searchParams.get('search')).trim().toLocaleLowerCase()
+  console.log(searchedValue);
+  
+  const filteredProducts = products.filter(product=>{
+    const productName = (product.name).trim().toLowerCase();
+    return productName.includes(searchedValue);
+  })
+
+  if (filteredProducts){
+    renderProductsGrid(filteredProducts);
+  }
+  
+}
+
